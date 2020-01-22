@@ -1,0 +1,10 @@
+.schoolSelection{
+    padding: 20px;
+    width: 80%;
+    background-color: white;
+    position: fixed;
+    left: 50%;
+    top: 30%;
+    transform: translate(-50%,-30%);
+    border-radius: 6px;
+}

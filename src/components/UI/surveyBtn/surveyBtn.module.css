@@ -1,0 +1,19 @@
+.SurveyBtn{
+    padding: 15px 40px;
+    font-size: 18px;
+    transition: ease 1000;
+}
+.SurveyBtn:hover{
+    cursor: pointer;
+    transform: scale(1.1);
+}
+.Positive{
+    background-color: forestgreen;
+    color: white;
+    border: 0;
+}
+.Negative{
+    background-color: red;
+    color: white;
+    border: 0;
+}
