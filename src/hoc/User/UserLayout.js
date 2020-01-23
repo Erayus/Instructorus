@@ -13,7 +13,7 @@ class UserLayout extends Component {
 
     render(){
         return (
-            <div className={classes.UserLayout}>
+            <div className={[classes.UserLayout, "aqua-gradient"].join(" ")}>
                 <Switch>
                     <Route path="/survey/:surveyingSchool" component={Survey} />
                     <Route path="/" exact component={SchoolSelection} />

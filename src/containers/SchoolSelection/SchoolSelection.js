@@ -39,9 +39,10 @@ class SchoolSelection extends Component {
             continueBtn =  <MDBBtn color="success" onClick={this.startSurvey}> Start Survey </MDBBtn>;
         }
         return (
-                <div className={classes.schoolSelection}>
-                    <h1 style={{fontWeight: "bolder"}}>Instructorus</h1>
-                    <h3>{status}</h3>
+                <div className={[classes.schoolSelection, "z-depth-2"].join(" ")}>
+                    <h1 style={{fontWeight: "bolder"}}>INSTRUCTORUS</h1>
+                    <hr></hr>
+                    <h5>{status}</h5>
                     <select onChange={this.onSelectSchool} ref={this.schoolSelectionBox} className="browser-default custom-select">
                         <option value="none">Select</option>
                         <option value="St Margaret Primary School">St Margaret Primary School</option>

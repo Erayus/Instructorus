@@ -110,8 +110,6 @@ const Survey: React.FC<RouteComponentProps<DetailParams>> = ({match, history}) =
     return (
 
             <React.Fragment>
-
-           
                 <MDBBtn 
                             color="orange"
                             style={{
@@ -124,19 +122,18 @@ const Survey: React.FC<RouteComponentProps<DetailParams>> = ({match, history}) =
                             <i className="fa fa-arrow-circle-o-left" style={{"marginRight": "5px", "fontSize": '18px'}}aria-hidden="true"></i> 
                             School Selection
                         </MDBBtn>
-            <WhiteBox>
-                 
-                <div className={classes.SurveyHead}>
-                    <h2 style={{"fontWeight": "bold"}}>{surveyingSchool}</h2>
-                </div>
-                
-                <div className={classes.SurveyBody}>
-                    {displayingQuestion} 
-                </div>
-                <div>
-                    <h6>{currentQuestionIndex + 1}/{questions.length}</h6>
-                </div>
-            </WhiteBox>
+                <WhiteBox>
+                    <div className={classes.SurveyHead}>
+                        <h2 style={{"fontWeight": "bold"}}>{surveyingSchool}</h2>
+                    </div>
+                    
+                    <div className={classes.SurveyBody}>
+                        {displayingQuestion} 
+                    </div>
+                    <div>
+                        <h6>{currentQuestionIndex + 1}/{questions.length}</h6>
+                    </div>
+                </WhiteBox>
             </React.Fragment>
         )  
 }

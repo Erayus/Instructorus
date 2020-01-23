@@ -3,7 +3,7 @@ import React from 'react';
 
 const whiteBox = (props) => {
     return (
-        <div className={classes.WhiteBox}>
+        <div className={classes.WhiteBox} >
             {props.children}
         </div>
     )
