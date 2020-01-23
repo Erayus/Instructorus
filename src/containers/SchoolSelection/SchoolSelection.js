@@ -40,7 +40,7 @@ class SchoolSelection extends Component {
         }
         return (
                 <div className={classes.schoolSelection}>
-                    <h1 style={{fontWeight: "bolder"}}>Tutoryaus</h1>
+                    <h1 style={{fontWeight: "bolder"}}>Instructorus</h1>
                     <h3>{status}</h3>
                     <select onChange={this.onSelectSchool} ref={this.schoolSelectionBox} className="browser-default custom-select">
                         <option value="none">Select</option>

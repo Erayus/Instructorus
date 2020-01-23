@@ -1,8 +1,16 @@
 import {MDBBtn} from 'mdbreact';
 import React from 'react';
-const question = (props) => {
-    const questionAnswered = (response) => {
-        props.responsed(props.id, response)
+
+interface IProps{
+    id: string;
+    type: string;
+    responded: (id: string, type: string, response: string) => void;
+}
+
+const question: React.FC<IProps> = (props) => {
+
+    const questionAnswered = (response: string) => {
+        props.responded(props.id, props.type, response)
     }
 
     let questionBody = null;
@@ -18,9 +26,6 @@ const question = (props) => {
         default:
             alert('Unsupported Question Type')
     }
-
-  
-
 
     return (
         <div>
