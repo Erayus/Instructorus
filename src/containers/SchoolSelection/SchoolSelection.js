@@ -7,6 +7,7 @@ class SchoolSelection extends Component {
         super(props);
         this.schoolSelectionBox= React.createRef();
     }
+
     state = {
         selectedSchool: "none"
     }
@@ -21,11 +22,8 @@ class SchoolSelection extends Component {
 
     onSelectSchool = (event) => {
         localStorage.setItem('selectedSchool', event.target.value );
-        if (event.target.value !== "none"){
-            this.setState({selectedSchool: event.target.value})
-        } else {
-            this.setState({selectedSchool: event.target.value})
-        }
+        this.setState({selectedSchool: event.target.value})
+     
     }
     startSurvey = () => {
         this.props.history.push('/survey/' + this.state.selectedSchool)
@@ -34,9 +32,10 @@ class SchoolSelection extends Component {
     render(){
         let status = "Select a school";
         let continueBtn = null;
+
         if (this.state.selectedSchool !== "none"){
             status = "You have selected:";
-            continueBtn =  <MDBBtn color="success" onClick={this.startSurvey}> Start Survey </MDBBtn>;
+            continueBtn =  <MDBBtn className="mt-4" color="success" onClick={this.startSurvey}> Start Survey </MDBBtn>;
         }
         return (
                 <div className={[classes.schoolSelection, "z-depth-2"].join(" ")}>

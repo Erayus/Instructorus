@@ -4,4 +4,5 @@ export interface IAnswer {
     response: string;
     questionId: string;
     instructorId: string;
+    schoolId: string;
 }

@@ -1,0 +1,41 @@
+{
+    "questions": [
+        {
+            "id": "Q001",
+            "content": "Did you have fun today?",
+            "type": "yesno"
+        },
+        {
+            "id": "Q002",
+            "content": "Did you learn something new today?",
+            "type": "yesno"
+        },
+        {
+            "id": "Q003",
+            "content": "Do you love today's challenges?",
+            "type": "yesno"
+        }
+    ],
+    "schools": [
+        {
+            "id": "S001",
+            "name": "Gardenvale Primary School",
+            "photoUrl": "url"
+        },
+        {
+            "id": "S001",
+            "name": "St Margaret Primary School",
+            "photoUrl": "url"
+        },
+        {
+            "id": "S001",
+            "name": "Moreland Primary School",
+            "photoUrl": "url"
+        },
+        {
+            "id": "S001",
+            "name": "Elwood Primary School",
+            "photoUrl": "url"
+        }
+    ]
+}

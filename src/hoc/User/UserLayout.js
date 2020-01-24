@@ -9,8 +9,6 @@ class UserLayout extends Component {
     componentDidMount(){
       
     }
-
-
     render(){
         return (
             <div className={[classes.UserLayout, "aqua-gradient"].join(" ")}>
