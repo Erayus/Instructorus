@@ -16,7 +16,7 @@ const AdminLayout = () => {
                         <Switch>
                             <Route path="/admin/instructors-report" component={InstructorsReports}/>
                             <Route path="/admin/schools-report" component={SchoolsReport}/>
-                            <Route path="/admin/users-management" component={Management}/>
+                            <Route path="/admin/manage" component={Management}/>
                         </Switch>
                     </div>
             </div>
