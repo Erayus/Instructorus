@@ -7,7 +7,7 @@ import classes from './TopNav.module.css';
 const  topNav = (props) => {
 
   return (
-      <MDBNavbar color="elegant-color-dark"  dark expand="md" className="mb-5" style={{marginLeft: '250px'}}>
+      <MDBNavbar color="elegant-color-dark"  dark expand="md" className="mb-5" >
           <MDBNavbarNav>
               <MDBNavbarBrand>
                 <strong className="white-text pl-5" style={{fontSize: '28px', fontFamily: 'Audiowide'}}>JUNIOR ENGINEERS</strong>

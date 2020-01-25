@@ -11,10 +11,12 @@ const AdminLayout = () => {
         return (
             <div className={classes.AdminLayout}>
                  <SideNav/>
-                    <div className="main-content">
+                    <div className={classes.AdminContent}>
                         <TopNav/>
                         <Switch>
-                        
+                            <Route path="/admin/instructors-report" component={InstructorsReports}/>
+                            <Route path="/admin/schools-report" component={SchoolsReport}/>
+                            <Route path="/admin/users-management" component={UsersManagement}/>
                         </Switch>
                     </div>
             </div>
