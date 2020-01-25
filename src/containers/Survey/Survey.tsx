@@ -5,7 +5,7 @@ import Question from "../../components/Question/Question";
 import classes from "./Survey.module.css";
 import axios from "../../axios-survey";
 import { IQuestion } from "../../models/question";
-import { IAnswer } from "../../models/answer";
+import { IFeedback } from "../../models/feedback";
 import { RouteComponentProps } from "react-router";
 
 
@@ -34,7 +34,7 @@ const Survey: React.FC<RouteComponentProps<DetailParams>> = ({match, history}) =
     ]);
     const [surveyingSchool, setSurveyingSchool] = useState<string>();
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState<number>(0);
-    const [answers, setAnswers] = useState<IAnswer[]>([]);
+    const [answers, setAnswers] = useState<IFeedback[]>([]);
 
     // useEffect(() => {
     //       // Auto-selected previous selected school
@@ -67,7 +67,7 @@ const Survey: React.FC<RouteComponentProps<DetailParams>> = ({match, history}) =
 
     const onAnswer = (questionId: string, type: string, response: string) => {
         // Add new answer to the answers 
-        let newAnswer: IAnswer = {
+        let newAnswer: IFeedback = {
             id: String(Math.random()),
             type: type,
             response: response,

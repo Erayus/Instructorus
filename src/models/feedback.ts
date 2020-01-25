@@ -1,7 +1,7 @@
-export interface IAnswer {
+export interface IFeedback {
     id: string;
     type: string;
-    response: string;
+    response: string | number;
     questionId: string;
     instructorId: string;
     schoolId: string;

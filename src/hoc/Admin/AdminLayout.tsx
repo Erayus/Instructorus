@@ -5,7 +5,7 @@ import TopNav from '../../components/Navigation/TopNav/TopNav.component';
 import { Switch, Route } from 'react-router';
 import InstructorsReports from './InstructorsReport/InstructorsReports';
 import SchoolsReport from './SchoolsReport/SchoolsReport';
-import UsersManagement from './UsersManagement/UsersManagement';
+import Management from './Manage/Manage';
 
 const AdminLayout = () => {
         return (
@@ -16,7 +16,7 @@ const AdminLayout = () => {
                         <Switch>
                             <Route path="/admin/instructors-report" component={InstructorsReports}/>
                             <Route path="/admin/schools-report" component={SchoolsReport}/>
-                            <Route path="/admin/users-management" component={UsersManagement}/>
+                            <Route path="/admin/users-management" component={Management}/>
                         </Switch>
                     </div>
             </div>
