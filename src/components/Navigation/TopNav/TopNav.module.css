@@ -1,0 +1,12 @@
+
+
+@media (max-width: 768px) { 
+   .RightNav {
+        margin: 0px !important;
+        width: 100%;
+        align-items: center;
+        padding: 10px 0px;
+    }
+
+  }
+
