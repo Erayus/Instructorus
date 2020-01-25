@@ -23,7 +23,12 @@ const SideNav = (props) => {
                         </li>
                        <li>
                             <NavLink to="/speed-report" activeClassName={classes.active}>
-                                <MDBIcon fab icon="cloudscale" className="mr-2"/>SCHOOLs
+                                <MDBIcon fab icon="cloudscale" className="mr-2"/>SCHOOLS
+                            </NavLink>
+                        </li>
+                        <li>
+                            <NavLink to="/speed-report" activeClassName={classes.active}>
+                                <MDBIcon fab icon="user" className="mr-2"/>USER MANAGEMENT
                             </NavLink>
                         </li>
                    </ul>
