@@ -1,13 +1,11 @@
 import React, { useState, useEffect, useContext} from "react";
 import WhiteBox from "../../hoc/whiteBox/whiteBox";
-import { MDBBtn, MDBIcon } from "mdbreact";
 import {observer} from "mobx-react-lite";
 import { RouteComponentProps } from "react-router";
 
 
 import Question from "../../components/Question/Question";
 import classes from "./Survey.module.css";
-import axios from "../../axios-survey";
 import { IQuestion } from "../../models/question";
 import { IFeedback } from "../../models/feedback";
 import FeedbackStore from "../../stores/feedbackStore";

@@ -1,12 +1,21 @@
-import React from 'react'
-
+import React, { useState } from 'react';
+import Modal from '../../../components/UI/Modal/Modal';
 
 
 const InstructorsReports: React.FC = () => {
+    const [isOpen, setIsOpen] = useState(true);
+
+    const modalClosedHandler = () => {
+        setIsOpen(false);
+    }
     return (
-        <div>
-            <h1>Hello From InstructorsReports</h1>
-        </div>
+        <React.Fragment>
+            <h1>Hello</h1>
+            <Modal show={isOpen} modalClosed={modalClosedHandler}>
+                
+            </Modal>
+    
+        </React.Fragment>
     )
 }
 
