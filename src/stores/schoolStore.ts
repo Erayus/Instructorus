@@ -19,10 +19,13 @@ class SchoolStore {
         })
     }  
 
-    @action addSchool = async (school: ISchool) => {
-
-        await this.schoolRef.push(school); 
-        this.schools.push(school);
+    @action addSchool = async (newSchool: ISchool) => {
+        if (this.schools.some(school => school.name === newSchool.name)) {
+            alert('School exists already');
+        }else {
+            await this.schoolRef.push(newSchool); 
+        }
+        
     }
     @action removeSchool = async (id: string) => {
         const deletingSchool = this.schools.splice( this.schools.findIndex(s => s.id  === id),1)[0];

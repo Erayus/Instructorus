@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect, FormEvent } from 'react'
-import { MDBInput, MDBBtn, MDBCard, MDBCardImage, MDBCardBody, MDBCardTitle, MDBCardText } from 'mdbreact';
+import { MDBInput, MDBBtn, MDBCard, MDBCardImage, MDBCardBody, MDBCardTitle, MDBCardText, MDBRow, MDBCol } from 'mdbreact';
 
 import Modal from '../../../components/UI/Modal/Modal';
 import SchoolStore from '../../../stores/schoolStore'
@@ -20,26 +20,33 @@ const SchoolsReport = () => {
     }
     
 
- 
     return (
-        <div>
-            <MDBBtn gradient="peach" className="float-right" onClick={()=> setIsModalOpen(true)}>ADD NEW SCHOOL</MDBBtn>
+        <div className="px-3">
+            <MDBRow className="mt-2 mb-4" end>
+                <MDBBtn gradient="peach"  onClick={()=> setIsModalOpen(true)}>ADD NEW SCHOOL</MDBBtn>
+            </MDBRow>
 
-            {schoolStore.schools.map(school => {
-                return (
-                    <MDBCard key={school.id} style={{ width: "22rem" }}>
-                    <MDBCardImage className="img-fluid" src={school.logoUrl} waves />
-                    <MDBCardBody>
-                        <MDBCardTitle>{school.name}</MDBCardTitle>
-                        <MDBCardText>
-                            Some quick example text to build on the card title and make
-                            up the bulk of the card&apos;s content.
-                        </MDBCardText>
-                      <MDBBtn href="#">View</MDBBtn>
-                    </MDBCardBody>
-                  </MDBCard>
-                )
-            })}
+            <MDBRow>
+                {schoolStore.schools.map(school => {
+                    return (
+
+                        <MDBCol key={school.id} sm="12" md="4">
+                             <MDBCard >
+                                <MDBCardImage className="img-fluid" src={school.logoUrl} waves />
+                                <MDBCardBody>
+                                    <MDBCardTitle>{school.name}</MDBCardTitle>
+                                    <MDBCardText>
+                                        Some quick example text to build on the card title and make
+                                        up the bulk of the card&apos;s content.
+                                    </MDBCardText>
+                                <MDBBtn href="#">View</MDBBtn>
+                                </MDBCardBody>
+                            </MDBCard>
+                        </MDBCol>                 
+                    )
+                })}
+            </MDBRow>
+            
             <Modal
                 title="Add A School" 
                 show={isModalOpen} 
