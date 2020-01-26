@@ -6,6 +6,7 @@ import { Switch, Route, Redirect } from 'react-router';
 import InstructorsReports from './InstructorsReport/InstructorsReports';
 import SchoolsReport from './SchoolsReport/SchoolsReport';
 import Management from './Manage/Manage';
+import QuestionManage from './QuestionManage/QuestionManage';
 
 const AdminLayout = () => {
         return (
@@ -16,6 +17,7 @@ const AdminLayout = () => {
                         <Switch>
                             <Route path="/admin/instructors-report" component={InstructorsReports}/>
                             <Route path="/admin/schools-report" component={SchoolsReport}/>
+                            <Route path="/admin/manage-questions" component={QuestionManage}/>
                             <Route path="/admin/manage" component={Management}/>
                             <Redirect from="/" to="/admin/instructors-report"/>
                         </Switch>

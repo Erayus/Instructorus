@@ -11,9 +11,7 @@ const InstructorsReports: React.FC = () => {
     return (
         <React.Fragment>
             <h1>Hello</h1>
-            <Modal show={isOpen} modalClosed={modalClosedHandler}>
-                
-            </Modal>
+
     
         </React.Fragment>
     )
