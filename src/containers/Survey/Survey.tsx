@@ -1,12 +1,16 @@
-import React, { useState, useEffect} from "react";
+import React, { useState, useEffect, useContext} from "react";
 import WhiteBox from "../../hoc/whiteBox/whiteBox";
 import { MDBBtn, MDBIcon } from "mdbreact";
+import {observer} from "mobx-react-lite";
+import { RouteComponentProps } from "react-router";
+
+
 import Question from "../../components/Question/Question";
 import classes from "./Survey.module.css";
 import axios from "../../axios-survey";
 import { IQuestion } from "../../models/question";
 import { IFeedback } from "../../models/feedback";
-import { RouteComponentProps } from "react-router";
+import FeedbackStore from "../../stores/feedbackStore";
 
 
 interface DetailParams {
@@ -15,7 +19,7 @@ interface DetailParams {
 
 const Survey: React.FC<RouteComponentProps<DetailParams>> = ({match, history}) => {
 
-    const [questions, setQuestions] = useState<IQuestion[]>([
+    const [questions] = useState<IQuestion[]>([
         {
             id: "Q001",
             content: 'Did you have fun today?',
@@ -34,7 +38,8 @@ const Survey: React.FC<RouteComponentProps<DetailParams>> = ({match, history}) =
     ]);
     const [surveyingSchool, setSurveyingSchool] = useState<string>();
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState<number>(0);
-    const [answers, setAnswers] = useState<IFeedback[]>([]);
+
+    const feedbackStore = useContext(FeedbackStore);
 
     // useEffect(() => {
     //       // Auto-selected previous selected school
@@ -61,13 +66,19 @@ const Survey: React.FC<RouteComponentProps<DetailParams>> = ({match, history}) =
     }, [match.params.surveyingSchool])
 
   
-    const backToSchoolSelection = () => {
-        history.replace('/')
+    const back = () => {
+        if (currentQuestionIndex === 0 ) {
+            history.replace('/');
+        }else {
+            setCurrentQuestionIndex((prevQuestionIndex => prevQuestionIndex - 1));
+            feedbackStore.removeFeedback();
+            console.log(feedbackStore.surveyingFeedback);
+        }
     };
 
     const onAnswer = (questionId: string, type: string, response: string) => {
         // Add new answer to the answers 
-        let newAnswer: IFeedback = {
+        let newFeedback: IFeedback = {
             id: String(Math.random()),
             type: type,
             response: response,
@@ -86,24 +97,13 @@ const Survey: React.FC<RouteComponentProps<DetailParams>> = ({match, history}) =
         // answers[questionId][response] = ++answers[questionId][response] || 1;
         // this.setState({answers: answers});
         // Move to the next question or submit the survey
-        setAnswers([...answers, newAnswer]);
-        if (currentQuestionIndex < questions.length - 1){
+        feedbackStore.addFeedback(newFeedback);
+        if (currentQuestionIndex < questions.length - 1){   
             setCurrentQuestionIndex((prevQuestionIndex) => prevQuestionIndex + 1);
         } else {
-            submitSurvey();
-            history.replace('/')
+            feedbackStore.submitFeedback();
+            history.replace('/');
         }
-    }
-    const submitSurvey = () => {
-        answers.forEach(answer => {
-            axios.post("surveys/" + surveyingSchool+".json", answer).then(
-                (res) => {
-                    console.log(res);
-                }
-            ).catch(
-                (res) => console.log(res)
-            )
-        })  
     }
 
     let displayingQuestion = <Question
@@ -117,20 +117,10 @@ const Survey: React.FC<RouteComponentProps<DetailParams>> = ({match, history}) =
     return (
 
             <React.Fragment>
-               
-                <WhiteBox>
-                <MDBBtn 
-                            color="grey"
-                            style={{
-                                "backgroundColor": "white",
-                                "left": "10px",
-                                "top": "5px",
-                                "position": "fixed",
-                            }}
-                            onClick={backToSchoolSelection} >
-                            <MDBIcon icon="arrow-circle-left mr-2" />
-                            School Selection
-                        </MDBBtn>
+                <WhiteBox maxWidth="550px">
+                    <button type="button" className="btn rgba-blue-strong px-3 py-2 ml-3 float-left" onClick={back}>
+                        <i className="fas fa-arrow-left text-white"></i>
+                    </button>
 
                     <div className={classes.SurveyHead}>
                         <h2 className="text-aqua" style={{"fontWeight": "bold"}}>{surveyingSchool}</h2>
@@ -147,4 +137,4 @@ const Survey: React.FC<RouteComponentProps<DetailParams>> = ({match, history}) =
         )  
 }
 
-export default Survey;
+export default observer(Survey);

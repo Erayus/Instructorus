@@ -7,6 +7,7 @@ import UserLayout from "./hoc/User/UserLayout";
 // import Report from './containers/Report/Report'
 
 const App: React.FC = () => {
+ 
   return (
     <div className="App">
     <Switch>

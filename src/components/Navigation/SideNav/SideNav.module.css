@@ -6,7 +6,6 @@
     height: 100%;
     width: 250px;
     max-width: 70%;
-    background-color: #2E2E2E;
     box-sizing: border-box;
     padding: 0px 0px;
     transition: transform 0.3s ease-out;
@@ -34,7 +33,10 @@
 }
 
 .SideNav ul li a.active{
-    background-color:#212121;
+    background-color: white;
+    margin-left: 20px;
+    border-radius: 30px;
+    color: rgba(255, 152, 0, 0.7);
 }
 
 @media (max-width: 768px) { 

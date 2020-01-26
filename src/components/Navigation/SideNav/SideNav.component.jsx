@@ -7,8 +7,8 @@ import { MDBIcon } from "mdbreact";
 const SideNav = (props) => {
     return  (
         <React.Fragment>
-            <div className={classes.SideNav}>
-                <div className="pt-2"style={{height: '67px', borderBottom: '2px solid #212121'}}>
+            <div className={[classes.SideNav, "peach-gradient"].join(" ")}>
+                <div className="pt-2"style={{height: '67px', borderBottom: '2px solid white'}}>
                     <h2 style={{fontFamily: "Teko, sans-serif", fontSize: '40px'}}>Erayus</h2>
                 </div>
                 <div className={classes.Logo}>
@@ -18,7 +18,7 @@ const SideNav = (props) => {
                    <ul>
                        <li>
                             <NavLink to="/admin/instructors-report" exact activeClassName={classes.active}>
-                                <MDBIcon icon="chart-line" className="mr-2"/> INSTRUCTORS     
+                                 <i className="fas fa-chalkboard-teacher mr-2">,/</i> INSTRUCTORS     
                             </NavLink>
                         </li>
                        <li>
@@ -27,8 +27,8 @@ const SideNav = (props) => {
                             </NavLink>
                         </li>
                         <li>
-                            <NavLink to="/admin/users-management" activeClassName={classes.active}>
-                                <MDBIcon fab icon="user" className="mr-2"/>USERS MANAGEMENT
+                            <NavLink to="/admin/manage" activeClassName={classes.active}>
+                                <i className="fas fa-toolbox mr-2"></i> MANAGE
                             </NavLink>
                         </li>
                    </ul>

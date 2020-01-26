@@ -12,7 +12,7 @@ const AdminLayout = () => {
             <div className={classes.AdminLayout}>
                  <SideNav/>
                     <div className={classes.AdminContent}>
-                        <TopNav/>
+                        {/* <TopNav/> */}
                         <Switch>
                             <Route path="/admin/instructors-report" component={InstructorsReports}/>
                             <Route path="/admin/schools-report" component={SchoolsReport}/>
