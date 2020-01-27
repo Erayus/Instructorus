@@ -1,4 +1,4 @@
-import React, { useContext, useState, FormEvent, SyntheticEvent } from 'react'
+import React, { useContext, useState, FormEvent, SyntheticEvent, SelectHTMLAttributes, useRef, useEffect } from 'react'
 import { MDBInput, MDBBtn, MDBIcon } from 'mdbreact'
 
 import uuid4 from 'uuid/v4';
@@ -7,9 +7,12 @@ import { IQuestion } from '../../../../models/question';
 
 interface IProps {
     onQuestionAdded: () => void;
+    showStatus: boolean
 }
 
-const QuestionForm :React.FC<IProps> = ({onQuestionAdded}) => {
+const QuestionForm :React.FC<IProps> = ({onQuestionAdded, showStatus}) => {
+
+    const currentQuestionType = useRef<HTMLSelectElement>(null);
     const initialQuestionForm = {
         id: '',
         type: '',
@@ -18,16 +21,24 @@ const QuestionForm :React.FC<IProps> = ({onQuestionAdded}) => {
     const [question, setQuestion] = useState<IQuestion>(initialQuestionForm);
     const questionStore = useContext(QuestionStore);
 
+    useEffect(()=> {
+        setQuestion({...question, type: currentQuestionType.current!.value});  
+    },[showStatus])
 
     const addQuestionHandler = (e: SyntheticEvent<HTMLButtonElement>) => {
         e.preventDefault();
-        let newQuestion = {
-            ...question,
-            id: uuid4()
+        if (question.content === "") {
+            alert("Please pick a question type")
+        }else {
+            let newQuestion = {
+                ...question,
+                id: uuid4()
+            }
+            questionStore.addQuestion(newQuestion);
+            setQuestion(initialQuestionForm);
+            onQuestionAdded();
         }
-        questionStore.addQuestion(newQuestion);
-        setQuestion(initialQuestionForm); 
-        onQuestionAdded();
+       
     }
     const inputHandler = (e: FormEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
         const {name, value} = e.currentTarget;
@@ -39,8 +50,8 @@ const QuestionForm :React.FC<IProps> = ({onQuestionAdded}) => {
         <div className="grey-text">
             <div className="d-flex">
                 <MDBIcon far icon="list-alt mr-2" size="2x"/>
-                <select className="browser-default custom-select" name="type" onChange={inputHandler}>
-                    <option>Choose question type</option>
+                <select ref={currentQuestionType} className="browser-default custom-select" name="type" onChange={inputHandler}>
+                    <option value="">Choose question type</option>
                     <option value="yesno">Yes/No</option>
                     <option value="rating">Rating</option>
                     <option value="comment">Comment</option>

@@ -32,14 +32,11 @@ const SchoolsReport = () => {
 
                         <MDBCol key={school.id} sm="12" md="4">
                              <MDBCard >
-                                <MDBCardImage className="img-fluid" src={school.logoUrl} waves />
+                                <MDBCardImage className="img-fluid mx-auto" src={school.logoUrl} waves style={{height: '200px'}} />
                                 <MDBCardBody>
                                     <MDBCardTitle>{school.name}</MDBCardTitle>
-                                    <MDBCardText>
-                                        Some quick example text to build on the card title and make
-                                        up the bulk of the card&apos;s content.
-                                    </MDBCardText>
-                                <MDBBtn href="#">View</MDBBtn>
+                                 
+                                <MDBBtn color="blue" className="mx-auto btn-block" >View</MDBBtn>
                                 </MDBCardBody>
                             </MDBCard>
                         </MDBCol>                 

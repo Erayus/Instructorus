@@ -13,7 +13,7 @@ class Modal extends Component{
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
-        console.log('did update!')
+        // console.log('did update!')
     }
     render() {
         return (

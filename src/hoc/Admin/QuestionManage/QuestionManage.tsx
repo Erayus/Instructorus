@@ -42,9 +42,9 @@ const QuestionManage = () => {
             
             <Modal
                 title="Add New Question" 
-                show={isModalOpen} 
+                show={isModalOpen}
                 modalClosed={modalClosedHandler}> 
-                    <QuestionForm onQuestionAdded={()=> {setIsModalOpen(false)}} /> 
+                    <QuestionForm showStatus={isModalOpen} onQuestionAdded={()=> {setIsModalOpen(false)}} /> 
             </Modal>
     
         </div>
