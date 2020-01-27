@@ -16,14 +16,14 @@ const SideNav = (props) => {
                 </div>
                 <nav>
                    <ul>
-                       <li>
-                            <NavLink to="/admin/instructors-report" exact activeClassName={classes.active}>
-                                 <i className="fas fa-chalkboard-teacher mr-2"></i> INSTRUCTORS     
+                        <li>
+                            <NavLink to="/admin/schools-report" activeClassName={classes.active}>
+                                <MDBIcon icon="school" className="mr-2"/>SCHOOLS
                             </NavLink>
                         </li>
                        <li>
-                            <NavLink to="/admin/schools-report" activeClassName={classes.active}>
-                                <MDBIcon icon="school" className="mr-2"/>SCHOOLS
+                            <NavLink to="/admin/instructors-report" exact activeClassName={classes.active}>
+                                 <i className="fas fa-chalkboard-teacher mr-2"></i> INSTRUCTORS     
                             </NavLink>
                         </li>
                         <li>

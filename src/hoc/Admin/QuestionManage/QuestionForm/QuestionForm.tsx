@@ -1,4 +1,4 @@
-import React, { useContext, useState, FormEvent, SyntheticEvent, SelectHTMLAttributes, useRef, useEffect } from 'react'
+import React, { useContext, useState, FormEvent, SyntheticEvent, useRef, useEffect } from 'react'
 import { MDBInput, MDBBtn, MDBIcon } from 'mdbreact'
 
 import uuid4 from 'uuid/v4';
@@ -23,7 +23,7 @@ const QuestionForm :React.FC<IProps> = ({onQuestionAdded, showStatus}) => {
 
     useEffect(()=> {
         setQuestion({...question, type: currentQuestionType.current!.value});  
-    },[question,showStatus])
+    },[showStatus])
 
     const addQuestionHandler = (e: SyntheticEvent<HTMLButtonElement>) => {
         e.preventDefault();

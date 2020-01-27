@@ -1,25 +1,28 @@
-import React, { useState, useContext, useEffect, FormEvent } from 'react'
-import { MDBInput, MDBBtn, MDBCard, MDBCardImage, MDBCardBody, MDBCardTitle, MDBCardText, MDBRow, MDBCol } from 'mdbreact';
+import React, { useState, useContext, useEffect } from 'react'
+import {  MDBBtn, MDBCard, MDBCardImage, MDBCardBody, MDBCardTitle, MDBRow, MDBCol } from 'mdbreact';
 
 import Modal from '../../../components/UI/Modal/Modal';
 import SchoolStore from '../../../stores/schoolStore'
-import { ISchool } from '../../../models/school';
+
 import SchoolForm from './SchoolForm/SchoolForm';
 import { observer } from 'mobx-react-lite';
+import { RouteComponentProps } from 'react-router-dom';
 
-const SchoolsReport = () => {
+const SchoolsReport: React.FC<RouteComponentProps>= ({history}) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const schoolStore = useContext(SchoolStore);
 
     useEffect(()=> {
-        schoolStore.loadSchools();
+        // schoolStore.loadSchools();
     }, [schoolStore]);
 
     const modalClosedHandler = () => {
         setIsModalOpen(false);
     }
+    const selectSchoolHandler = (schoolId: string) => {
+        history.push("/admin/schools-report/"+ schoolId)
+    }
     
-
     return (
         <div className="px-3">
             <MDBRow className="mt-2 mb-4" end>
@@ -36,7 +39,7 @@ const SchoolsReport = () => {
                                 <MDBCardBody>
                                     <MDBCardTitle>{school.name}</MDBCardTitle>
                                  
-                                <MDBBtn color="blue" className="mx-auto btn-block" >View</MDBBtn>
+                                <MDBBtn color="blue" className="mx-auto btn-block" onClick={() => selectSchoolHandler(school.id)} >View</MDBBtn>
                                 </MDBCardBody>
                             </MDBCard>
                         </MDBCol>                 

@@ -1,6 +1,6 @@
 import React, { useState, useContext, useEffect } from 'react'
 import QuestionStore from '../../../stores/questionStore';
-import { MDBRow, MDBBtn, MDBCol, MDBCard, MDBCardImage, MDBCardBody, MDBCardTitle, MDBIcon, MDBBadge } from 'mdbreact';
+import { MDBRow, MDBBtn, MDBCol, MDBIcon, MDBBadge } from 'mdbreact';
 import Modal from '../../../components/UI/Modal/Modal';
 import QuestionForm from './QuestionForm/QuestionForm';
 import { observer } from 'mobx-react-lite';
@@ -10,14 +10,14 @@ const QuestionManage = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const questionStore = useContext(QuestionStore);
 
-    useEffect(()=> {
-        questionStore.loadQuestions();
-    }, [questionStore]);
+    // useEffect(()=> {
+    
+    //     // questionStore.loadQuestions();
+    // }, []);
 
     const modalClosedHandler = () => {
         setIsModalOpen(false);
     }
-    
 
     return (
         <div className="px-3">

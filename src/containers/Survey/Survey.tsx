@@ -6,7 +6,6 @@ import { RouteComponentProps } from "react-router";
 
 import Question from "../../components/Question/Question";
 import classes from "./Survey.module.css";
-import { IQuestion } from "../../models/question";
 import { IFeedback } from "../../models/feedback";
 import FeedbackStore from "../../stores/feedbackStore";
 import SchoolStore from "../../stores/schoolStore";
@@ -74,7 +73,7 @@ const Survey: React.FC<RouteComponentProps<DetailParams>> = ({match, history}) =
                                     >
                                     {questionStore.questions[currentQuestionIndex]?.content}
                                     </Question>
-    } else if (questionStore.questions.length == 0) {
+    } else if (questionStore.questions.length === 0) {
         displayingQuestion = "No questions added yet";
     }
 
