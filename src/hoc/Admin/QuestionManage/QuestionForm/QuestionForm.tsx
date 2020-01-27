@@ -23,7 +23,7 @@ const QuestionForm :React.FC<IProps> = ({onQuestionAdded, showStatus}) => {
 
     useEffect(()=> {
         setQuestion({...question, type: currentQuestionType.current!.value});  
-    },[showStatus])
+    },[question,showStatus])
 
     const addQuestionHandler = (e: SyntheticEvent<HTMLButtonElement>) => {
         e.preventDefault();

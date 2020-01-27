@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useRef, SelectHTMLAttributes, useContext, ChangeEvent} from 'react';
+import React, {useState, useEffect, useRef, useContext, ChangeEvent} from 'react';
 import classes from "./SchoolSelection.module.css";
 import { MDBBtn } from 'mdbreact';
 import SchoolStore from '../../stores/schoolStore';
@@ -13,14 +13,15 @@ const SchoolSelection: React.FC<RouteComponentProps> =  ({history}) => {
 
     useEffect(() => {
         schoolStore.loadSchools();
-        const selectedSchoolFromLS = localStorage.getItem('selectedSchool');
-        if (selectedSchoolFromLS !== "none") { 
-            // setSelectedSchool(schoolStore.schools.filter(school => school.name == selectedSchoolFromLS)[0]);
-            console.log(selectedSchoolFromLS);
-        };
-        //  schoolSelectionBox.current!.value = selectedSchool!.name;
-    }, [schoolStore])
         
+        const selectedSchoolFromLS:any = localStorage.getItem('selectedSchool');
+        if (selectedSchoolFromLS !== "none") {
+            setSelectedSchool(schoolStore.schools.filter(school => school.name === selectedSchoolFromLS)[0]);
+        };
+        schoolSelectionBox.current!.value = selectedSchoolFromLS;
+        
+    }, [schoolStore, schoolStore.schools.length])
+
 
     const onSelectSchool = (event: ChangeEvent<HTMLSelectElement>) => {
         console.log(event.target.value);
@@ -30,21 +31,12 @@ const SchoolSelection: React.FC<RouteComponentProps> =  ({history}) => {
     const startSurvey = () => {
         history.push('/survey/' + selectedSchool.id);
     }
-
-
-    let status = "Select a school";
-    let continueBtn = null;
-
-    if (selectedSchool!.name !== "none"){
-        status = "You have selected:";
-        continueBtn =  <MDBBtn className="mt-4" color="success" onClick={startSurvey}> Start Survey </MDBBtn>;
-    }
     
     return (
             <div className={[classes.schoolSelection, "z-depth-2 text-center"].join(" ")}>
                 <h1 style={{fontWeight: "bolder"}}>INSTRUCTORUS</h1>
                 <hr></hr>
-                <h5>{status}</h5>
+                <h5>{selectedSchool?.name !== "none" ? "You have selected" : "Please select a school" }</h5>
                 <select onChange={onSelectSchool}  ref={schoolSelectionBox} className="browser-default custom-select">
                     <option value="none">Select</option>
                     {schoolStore.schools.map(school => (
@@ -52,7 +44,7 @@ const SchoolSelection: React.FC<RouteComponentProps> =  ({history}) => {
                     ))}
                    
                 </select>
-                {continueBtn}
+                {selectedSchool?.name !== "none" ? <MDBBtn className="mt-4" color="success" onClick={startSurvey}> Start Survey </MDBBtn> : null}
             </div>
     )
     

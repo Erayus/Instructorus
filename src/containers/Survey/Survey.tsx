@@ -30,7 +30,7 @@ const Survey: React.FC<RouteComponentProps<DetailParams>> = ({match, history}) =
         questionStore.loadQuestions();
         setSurveyingSchool(schoolStore.schools.filter(school => school.id === match.params.schoolId)[0]);
 
-    }, [match.params.schoolId, schoolStore.schools.length, questionStore])
+    }, [match.params.schoolId, schoolStore.schools.length, questionStore, schoolStore])
 
   
     const back = () => {
@@ -55,7 +55,7 @@ const Survey: React.FC<RouteComponentProps<DetailParams>> = ({match, history}) =
         }
 
         feedbackStore.addFeedback(newFeedback);
-        
+
         if (currentQuestionIndex < questionStore.questions.length - 1){   
             setCurrentQuestionIndex((prevQuestionIndex) => prevQuestionIndex + 1);
         } else {
