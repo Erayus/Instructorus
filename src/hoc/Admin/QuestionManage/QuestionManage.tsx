@@ -1,8 +1,9 @@
 import React, { useState, useContext, useEffect } from 'react'
 import QuestionStore from '../../../stores/questionStore';
-import { MDBRow, MDBBtn, MDBCol, MDBCard, MDBCardImage, MDBCardBody, MDBCardTitle, MDBIcon } from 'mdbreact';
+import { MDBRow, MDBBtn, MDBCol, MDBCard, MDBCardImage, MDBCardBody, MDBCardTitle, MDBIcon, MDBBadge } from 'mdbreact';
 import Modal from '../../../components/UI/Modal/Modal';
 import QuestionForm from './QuestionForm/QuestionForm';
+import { observer } from 'mobx-react-lite';
 
 const QuestionManage = () => {
 
@@ -27,7 +28,14 @@ const QuestionManage = () => {
             <MDBRow>
                 {questionStore.questions.map(question => {
                     return (
-                        <div></div>
+                        <MDBCol  key={question.id}  md="6" className="my-2">
+                             <div className="rounded z-depth-1 p-3 d-flex">
+                                <h5 className="my-auto">{question.content}</h5>
+                                <MDBBadge pill color="warning py-2 ml-3">{question.type}</MDBBadge>
+                            </div>
+                        </MDBCol>
+
+                       
                     )
                 })}
             </MDBRow>
@@ -43,4 +51,4 @@ const QuestionManage = () => {
     )
 }
 
-export default QuestionManage
+export default observer(QuestionManage)

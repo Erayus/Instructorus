@@ -1,4 +1,4 @@
-import React, { useContext, useState, FormEvent } from 'react'
+import React, { useContext, useState, FormEvent, SyntheticEvent } from 'react'
 import { MDBInput, MDBBtn, MDBIcon } from 'mdbreact'
 
 import uuid4 from 'uuid/v4';
@@ -19,7 +19,8 @@ const QuestionForm :React.FC<IProps> = ({onQuestionAdded}) => {
     const questionStore = useContext(QuestionStore);
 
 
-    const addQuestionHandler = () => {
+    const addQuestionHandler = (e: SyntheticEvent<HTMLButtonElement>) => {
+        e.preventDefault();
         let newQuestion = {
             ...question,
             id: uuid4()
@@ -34,7 +35,7 @@ const QuestionForm :React.FC<IProps> = ({onQuestionAdded}) => {
     }
 
     return (
-        <form>
+        <form > 
         <div className="grey-text">
             <div className="d-flex">
                 <MDBIcon far icon="list-alt mr-2" size="2x"/>

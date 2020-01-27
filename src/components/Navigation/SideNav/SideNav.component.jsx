@@ -7,7 +7,7 @@ import { MDBIcon } from "mdbreact";
 const SideNav = (props) => {
     return  (
         <React.Fragment>
-            <div className={[classes.SideNav, "peach-gradient"].join(" ")}>
+            <div className={[classes.SideNav, "peach-gradient", "text-center"].join(" ")}>
                 <div className="pt-2"style={{height: '67px', borderBottom: '2px solid white'}}>
                     <h2 style={{fontFamily: "Teko, sans-serif", fontSize: '40px'}}>RAYMOND</h2>
                 </div>
