@@ -9,34 +9,37 @@ import classes from "./Survey.module.css";
 import { IQuestion } from "../../models/question";
 import { IFeedback } from "../../models/feedback";
 import FeedbackStore from "../../stores/feedbackStore";
-
+import SchoolStore from "../../stores/schoolStore";
+import { ISchool } from './../../models/school';
+import QuestionStore from "../../stores/questionStore";
 
 interface DetailParams {
-    surveyingSchool: string
+    schoolId: string
 }
 
 const Survey: React.FC<RouteComponentProps<DetailParams>> = ({match, history}) => {
 
-    const [questions] = useState<IQuestion[]>([
-        {
-            id: "Q001",
-            content: 'Did you have fun today?',
-            type: 'yesno'
-        },
-        {
-            id: "Q002",
-            content: 'Did you learn something new today?',
-            type: 'yesno'
-        },
-        {
-            id: "Q003",
-            content: "Do you love today's challenges?",
-            type: 'yesno'
-        }
-    ]);
-    const [surveyingSchool, setSurveyingSchool] = useState<string>();
+    // const [questions] = useState<IQuestion[]>([
+    //     {
+    //         id: "Q001",
+    //         content: 'Did you have fun today?',
+    //         type: 'yesno'
+    //     },
+    //     {
+    //         id: "Q002",
+    //         content: 'Did you learn something new today?',
+    //         type: 'yesno'
+    //     },
+    //     {
+    //         id: "Q003",
+    //         content: "Do you love today's challenges?",
+    //         type: 'yesno'
+    //     }
+    // ]);
+    const [surveyingSchool, setSurveyingSchool] = useState<ISchool>();
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState<number>(0);
-
+    const questionStore = useContext(QuestionStore)
+    const schoolStore = useContext(SchoolStore);
     const feedbackStore = useContext(FeedbackStore);
 
     // useEffect(() => {
@@ -60,8 +63,11 @@ const Survey: React.FC<RouteComponentProps<DetailParams>> = ({match, history}) =
     // })
 
     useEffect(()=> {
-        setSurveyingSchool(match.params.surveyingSchool);
-    }, [match.params.surveyingSchool])
+        schoolStore.loadSchools();
+        questionStore.loadQuestions();
+        setSurveyingSchool(schoolStore.schools.filter(school => school.id === match.params.schoolId)[0]);
+        console.log(schoolStore.schools);
+    }, [match.params.schoolId, schoolStore, questionStore])
 
   
     const back = () => {
@@ -82,7 +88,7 @@ const Survey: React.FC<RouteComponentProps<DetailParams>> = ({match, history}) =
             response: response,
             questionId: questionId,
             instructorId: "1", //come from Redux Store later,
-            schoolId: ""
+            schoolId: match.params.schoolId
         }
         //Initialize answers value
         // if (answers == null){
@@ -96,7 +102,7 @@ const Survey: React.FC<RouteComponentProps<DetailParams>> = ({match, history}) =
         // this.setState({answers: answers});
         // Move to the next question or submit the survey
         feedbackStore.addFeedback(newFeedback);
-        if (currentQuestionIndex < questions.length - 1){   
+        if (currentQuestionIndex < questionStore.questions.length - 1){   
             setCurrentQuestionIndex((prevQuestionIndex) => prevQuestionIndex + 1);
         } else {
             feedbackStore.submitFeedback();
@@ -104,31 +110,36 @@ const Survey: React.FC<RouteComponentProps<DetailParams>> = ({match, history}) =
         }
     }
 
-    let displayingQuestion = <Question
-                                id={questions[currentQuestionIndex].id}
-                                type={questions[currentQuestionIndex].type}
-                                responded={(id: string, type: string, response: string) => onAnswer(id, type, response)}
-                                >
-                                {questions[currentQuestionIndex].content}
-                                </Question>
+    let displayingQuestion = null;
+    if (questionStore.questions.length > 0) {
+        displayingQuestion = <Question
+                                    id={questionStore.questions[currentQuestionIndex]?.id}
+                                    type={questionStore.questions[currentQuestionIndex]?.type}
+                                    responded={(id: string, type: string, response: string) => onAnswer(id, type, response)}
+                                    >
+                                    {questionStore.questions[currentQuestionIndex]?.content}
+                                    </Question>
+    }
 
     return (
 
             <React.Fragment>
                 <WhiteBox maxWidth="550px">
-                    <button type="button" className="btn rgba-blue-strong px-3 py-2 ml-3 float-left" onClick={back}>
-                        <i className="fas fa-arrow-left text-white"></i>
-                    </button>
+                    <div className="text-center">
+                        <button type="button" className="btn rgba-blue-strong px-3 py-2 ml-3 float-left" onClick={back}>
+                            <i className="fas fa-arrow-left text-white"></i>
+                        </button>
 
-                    <div className={classes.SurveyHead}>
-                        <h2 className="text-aqua" style={{"fontWeight": "bold"}}>{surveyingSchool}</h2>
-                    </div>
-                    
-                    <div className={classes.SurveyBody}>
-                        {displayingQuestion} 
-                    </div>
-                    <div>
-                        <h6>{currentQuestionIndex + 1}/{questions.length}</h6>
+                        <div className={classes.SurveyHead}>
+                            <h2 className="text-aqua" style={{"fontWeight": "bold"}}>{surveyingSchool ? surveyingSchool!.name : null}</h2>
+                        </div>
+                        
+                        <div className={classes.SurveyBody}>
+                            {displayingQuestion} 
+                        </div>
+                        <div>
+                            <h6>{currentQuestionIndex + 1}/{questionStore.questions.length}</h6>
+                        </div>
                     </div>
                 </WhiteBox>
             </React.Fragment>

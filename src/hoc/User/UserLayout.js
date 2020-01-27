@@ -13,7 +13,7 @@ class UserLayout extends Component {
         return (
             <div className={[classes.UserLayout, "peach-gradient"].join(" ")}>
                 <Switch>
-                    <Route path="/survey/:surveyingSchool" component={Survey} />
+                    <Route path="/survey/:schoolId" component={Survey} />
                     <Route path="/" exact component={SchoolSelection} />
                 </Switch>
                 
