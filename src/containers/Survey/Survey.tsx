@@ -19,55 +19,18 @@ interface DetailParams {
 
 const Survey: React.FC<RouteComponentProps<DetailParams>> = ({match, history}) => {
 
-    // const [questions] = useState<IQuestion[]>([
-    //     {
-    //         id: "Q001",
-    //         content: 'Did you have fun today?',
-    //         type: 'yesno'
-    //     },
-    //     {
-    //         id: "Q002",
-    //         content: 'Did you learn something new today?',
-    //         type: 'yesno'
-    //     },
-    //     {
-    //         id: "Q003",
-    //         content: "Do you love today's challenges?",
-    //         type: 'yesno'
-    //     }
-    // ]);
     const [surveyingSchool, setSurveyingSchool] = useState<ISchool>();
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState<number>(0);
     const questionStore = useContext(QuestionStore)
     const schoolStore = useContext(SchoolStore);
     const feedbackStore = useContext(FeedbackStore);
 
-    // useEffect(() => {
-    //       // Auto-selected previous selected school
-    //       const surveyingSchool = match.params.surveyingSchool;
-    //       setSurveyingSchool(surveyingSchool);
-  
-    //       //Get answers from the database
-    //       axios.get<IAnswer[]>("./surveys/" + surveyingSchool+".json")
-    //       .then(
-    //           (res) => {
-    //               const answers = res.data;
-    //               if (answers){
-    //                   setAnswers(answers)
-    //               }
-    //           }
-    //       )
-    //       .catch(
-    //           (error) => console.log(error)
-    //       )
-    // })
-
     useEffect(()=> {
         schoolStore.loadSchools();
         questionStore.loadQuestions();
         setSurveyingSchool(schoolStore.schools.filter(school => school.id === match.params.schoolId)[0]);
-        console.log(schoolStore.schools);
-    }, [match.params.schoolId, schoolStore, questionStore])
+
+    }, [match.params.schoolId, schoolStore.schools.length, questionStore])
 
   
     const back = () => {
@@ -90,18 +53,9 @@ const Survey: React.FC<RouteComponentProps<DetailParams>> = ({match, history}) =
             instructorId: "1", //come from Redux Store later,
             schoolId: match.params.schoolId
         }
-        //Initialize answers value
-        // if (answers == null){
-        //     newAnswers = {};
-        //     answers[questionId] = {"Yes": 0, "No": 0};
-        // } else if (!answers[questionId]){
-        //     answers[questionId] = {"Yes": 0, "No": 0};
-        // }
 
-        // answers[questionId][response] = ++answers[questionId][response] || 1;
-        // this.setState({answers: answers});
-        // Move to the next question or submit the survey
         feedbackStore.addFeedback(newFeedback);
+        
         if (currentQuestionIndex < questionStore.questions.length - 1){   
             setCurrentQuestionIndex((prevQuestionIndex) => prevQuestionIndex + 1);
         } else {
@@ -110,7 +64,8 @@ const Survey: React.FC<RouteComponentProps<DetailParams>> = ({match, history}) =
         }
     }
 
-    let displayingQuestion = null;
+
+    let displayingQuestion: any = "Loading questions...";
     if (questionStore.questions.length > 0) {
         displayingQuestion = <Question
                                     id={questionStore.questions[currentQuestionIndex]?.id}
@@ -119,6 +74,8 @@ const Survey: React.FC<RouteComponentProps<DetailParams>> = ({match, history}) =
                                     >
                                     {questionStore.questions[currentQuestionIndex]?.content}
                                     </Question>
+    } else if (questionStore.questions.length == 0) {
+        displayingQuestion = "No questions added yet";
     }
 
     return (
