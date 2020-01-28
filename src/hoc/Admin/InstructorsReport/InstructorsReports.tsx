@@ -8,11 +8,11 @@ const InstructorsReports: React.FC = () => {
     //     setIsOpen(false);
     // }
     return (
-        <React.Fragment>
-            <h1>Hello</h1>
+        <div className="p-3 text-center ">
+            <h1>Coming soon</h1>
 
     
-        </React.Fragment>
+        </div>
     )
 }
 

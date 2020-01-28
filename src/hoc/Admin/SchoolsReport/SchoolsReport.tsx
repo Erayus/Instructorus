@@ -28,7 +28,7 @@ const SchoolsReport: React.FC<RouteComponentProps>= ({history}) => {
     return (
         <div className="px-3">
             <MDBRow className="mt-2 mb-4" end>
-                <MDBBtn gradient="peach"  onClick={()=> setIsModalOpen(true)}>ADD NEW SCHOOL</MDBBtn>
+                <MDBBtn gradient="aqua"  onClick={()=> setIsModalOpen(true)}>ADD NEW SCHOOL</MDBBtn>
             </MDBRow>
             <MDBRow className="mt-2 mb-5" end>
                 <MDBCol>
@@ -83,7 +83,7 @@ const SchoolsReport: React.FC<RouteComponentProps>= ({history}) => {
                                 <MDBCardBody>
                                     <MDBCardTitle>{school.name}</MDBCardTitle>
                                  
-                                <MDBBtn color="blue" className="mx-auto btn-block" onClick={() => selectSchoolHandler(school.id)} >View</MDBBtn>
+                                <MDBBtn color="orange" className="mx-auto btn-block" onClick={() => selectSchoolHandler(school.id)} >View</MDBBtn>
                                 </MDBCardBody>
                             </MDBCard>
                         </MDBCol>                 

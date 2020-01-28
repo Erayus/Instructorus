@@ -2,9 +2,11 @@ import React from 'react'
 
 const Management = () => {
     return (
-        <div>
-            <h1>Hello from Management</h1>
-        </div>
+        <div className="p-3 text-center ">
+        <h1>Coming soon</h1>
+
+
+    </div>
     )
 }
 

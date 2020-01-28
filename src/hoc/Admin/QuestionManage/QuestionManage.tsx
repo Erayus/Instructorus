@@ -24,7 +24,7 @@ const QuestionManage = () => {
     return (
         <div className="px-3">
             <MDBRow className="mt-2 mb-4" end>
-                <MDBBtn gradient="peach"  onClick={()=> setIsModalOpen(true)}><MDBIcon far icon="question-circle mr-2" />ADD NEW QUESTION</MDBBtn>
+                <MDBBtn gradient="aqua"  onClick={()=> setIsModalOpen(true)}><MDBIcon far icon="question-circle mr-2" />ADD NEW QUESTION</MDBBtn>
             </MDBRow>
 
             <MDBRow>

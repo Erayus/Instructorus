@@ -8,9 +8,10 @@
     max-width: 70%;
     box-sizing: border-box;
     padding: 0px 0px;
-    transition: transform 0.3s ease-out;
+    transition: all 0.3s cubic-bezier(0.6, -0.28, 0.735, 0.045);
     color: white;
 }
+
 .SideNav ul {
     list-style: none;
     text-align: left;
@@ -29,6 +30,7 @@
     display: block;
     height: 100%;
     width: 92%;
+    transition: all 0.3s cubic-bezier(0.6, -0.28, 0.735, 0.045);
     box-sizing: border-box;
 }
 

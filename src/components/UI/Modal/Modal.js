@@ -25,7 +25,7 @@ class Modal extends Component{
                      }}>
                     <MDBCardBody>
                         <MDBCardHeader 
-                            className="form-header warm-flame-gradient rounded mb-5"
+                            className="form-header blue-gradient rounded mb-5"
                             style={{marginTop: "-50px"}}
                         >
                             <h3 className="my-3 text-center text-white">
@@ -36,9 +36,9 @@ class Modal extends Component{
                         {this.props.children}
                       
 
-                        <MDBModalFooter>
+                        {/* <MDBModalFooter>
                             
-                        </MDBModalFooter>
+                        </MDBModalFooter> */}
                     </MDBCardBody>
                 </MDBCard>
 
