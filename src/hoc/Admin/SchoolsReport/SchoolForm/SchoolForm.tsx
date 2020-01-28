@@ -3,7 +3,7 @@ import { MDBInput, MDBBtn } from 'mdbreact'
 import { ISchool } from '../../../../models/school';
 
 import uuid4 from 'uuid/v4';
-import SchoolStore from '../../../../stores/schoolStore';
+import {  RootStoreContext } from '../../../../stores/rootStore';
 
 interface IProps {
     onSchoolAdded: () => void;
@@ -16,7 +16,10 @@ const SchoolForm :React.FC<IProps> = ({onSchoolAdded}) => {
         logoUrl: ''
     }
     const [school, setSchool] = useState<ISchool>(initialSchoolForm);
-    const schoolStore = useContext(SchoolStore);
+    const rootStore = useContext(RootStoreContext);
+
+    const {addSchool} = rootStore.schoolStore;
+
 
 
     const addSchoolHandler = () => {
@@ -24,7 +27,7 @@ const SchoolForm :React.FC<IProps> = ({onSchoolAdded}) => {
             ...school,
             id: uuid4()
         }
-        schoolStore.addSchool(newSchool);
+        addSchool(newSchool);
         setSchool(initialSchoolForm); 
         onSchoolAdded();
     }

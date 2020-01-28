@@ -1,21 +1,22 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { RouteComponentProps } from 'react-router-dom';
-import FeedbackStore from '../../../../stores/feedbackStore';
 import { observer } from 'mobx-react-lite';
 import { IFeedback } from '../../../../models/feedback';
+import { RootStoreContext } from '../../../../stores/rootStore';
 
 interface DetailParams {
     schoolId: string
 }
 
 const SchoolDetailedReport: React.FC<RouteComponentProps<DetailParams>> = ({match, history}) => {
-    const feedbackStore = useContext(FeedbackStore);
+    const rootStore = useContext(RootStoreContext);
+    const {getFeedbackBySchoolId, feedback} = rootStore.feedbackStore;
     const [feedbackForSchool, setFeedbackForSchool] = useState<IFeedback[]>();
 
     useEffect(() => {
         // feedbackStore.loadFeedback();
-        setFeedbackForSchool(feedbackStore.getFeedbackBySchoolId(match.params.schoolId)); 
-    },[feedbackStore, feedbackStore.feedback.length, match.params.schoolId])
+        setFeedbackForSchool(getFeedbackBySchoolId(match.params.schoolId)); 
+    },[rootStore, feedback.length, match.params.schoolId])
 
 
 

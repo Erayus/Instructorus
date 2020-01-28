@@ -1,7 +1,7 @@
 import React from 'react';
 import { Chart } from '@bit/primefaces.primereact.chart';
 
-const chart = (props) =>{
+const DoughNutChart = (props) =>{
     const data = {
         labels: ['Yes', 'No'],
         datasets: [
@@ -21,4 +21,4 @@ const chart = (props) =>{
 } 
 
  
-export default chart;
+export default DoughNutChart;

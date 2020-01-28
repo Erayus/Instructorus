@@ -2,8 +2,8 @@ import React, { useContext, useState, FormEvent, SyntheticEvent, useRef, useEffe
 import { MDBInput, MDBBtn, MDBIcon } from 'mdbreact'
 
 import uuid4 from 'uuid/v4';
-import QuestionStore from '../../../../stores/questionStore';
 import { IQuestion } from '../../../../models/question';
+import { RootStoreContext } from '../../../../stores/rootStore';
 
 interface IProps {
     onQuestionAdded: () => void;
@@ -19,7 +19,8 @@ const QuestionForm :React.FC<IProps> = ({onQuestionAdded, showStatus}) => {
         content: ''
     }
     const [question, setQuestion] = useState<IQuestion>(initialQuestionForm);
-    const questionStore = useContext(QuestionStore);
+    const rootStore = useContext(RootStoreContext);
+    const {questions, addQuestion} = rootStore.questionStore;
 
     useEffect(()=> {
         setQuestion({...question, type: currentQuestionType.current!.value});  
@@ -34,7 +35,7 @@ const QuestionForm :React.FC<IProps> = ({onQuestionAdded, showStatus}) => {
                 ...question,
                 id: uuid4()
             }
-            questionStore.addQuestion(newQuestion);
+            addQuestion(newQuestion);
             setQuestion(initialQuestionForm);
             onQuestionAdded();
         }

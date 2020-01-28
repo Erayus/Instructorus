@@ -1,21 +1,47 @@
 import firebase from "../firebase";
 import {observable, action, reaction} from 'mobx';
 import { IFeedback } from "../models/feedback";
-import { createContext } from "react";
+// import { createContext } from "react";
+import { toJS } from "mobx";
+import {RootStore} from "./rootStore";
 
-class FeedbackStore {
+export default class FeedbackStore {
+    rootStore: RootStore;
+    constructor(rootStore: RootStore){
+        this.rootStore = rootStore;
 
-    
-    constructor(){
+
         reaction(
-            () => this.surveyingFeedback,
-            (surveyingFeedback) => console.log(surveyingFeedback)
+            () => this.feedback,
+            (feedback) => {
+                // console.log(feedback)
+            }
         )
     }
+
     @observable feedback: IFeedback[] = [];
     @observable surveyingFeedback: IFeedback[] = [];
     private feedbackRef = firebase.db.ref('feedback');
 
+    @action getFeedbackBySchoolId = (schoolId: string) =>  {
+        if (this.feedback.length > 0){
+            let feedbackBySchoolId = this.feedback.filter(feedback => feedback.schoolId === schoolId)
+            console.log(toJS(feedbackBySchoolId, {recurseEverything : true}))
+            return this.feedback
+        }
+    }
+
+    @action loadFeedback =  () => {
+        this.feedbackRef.on('value', (snapshot : any) => 
+        {   
+            let loadedFeedback: IFeedback[] = [];
+            snapshot.forEach((childSnapshot: any) => {
+                // var childKey = childSnapshot.key;
+                loadedFeedback.push(childSnapshot.val());
+            });
+            this.feedback = loadedFeedback;
+        })
+    }  
 
     @action addFeedback = async (feedback: IFeedback) => {
        this.surveyingFeedback.push(feedback);
@@ -32,4 +58,4 @@ class FeedbackStore {
     }
 }
 
-export default createContext(new FeedbackStore());
+// export default createContext(new FeedbackStore());

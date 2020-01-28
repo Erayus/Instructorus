@@ -4,11 +4,13 @@ import { MDBRow, MDBBtn, MDBCol, MDBIcon, MDBBadge } from 'mdbreact';
 import Modal from '../../../components/UI/Modal/Modal';
 import QuestionForm from './QuestionForm/QuestionForm';
 import { observer } from 'mobx-react-lite';
+import { RootStoreContext } from '../../../stores/rootStore';
 
 const QuestionManage = () => {
 
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const questionStore = useContext(QuestionStore);
+    const rootStore = useContext(RootStoreContext);
+    const {questions} = rootStore.questionStore;
 
     // useEffect(()=> {
     
@@ -26,7 +28,7 @@ const QuestionManage = () => {
             </MDBRow>
 
             <MDBRow>
-                {questionStore.questions.map(question => {
+                {questions.map(question => {
                     return (
                         <MDBCol  key={question.id}  md="6" className="my-2">
                              <div className="rounded z-depth-1 p-3 d-flex">

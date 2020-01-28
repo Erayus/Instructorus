@@ -8,20 +8,20 @@ import SchoolsReport from './SchoolsReport/SchoolsReport';
 import Management from './Manage/Manage';
 import QuestionManage from './QuestionManage/QuestionManage';
 import SchoolDetailedReport from './SchoolsReport/SchoolDetailedReport/SchoolDetailedReport';
-import SchoolStore from '../../stores/schoolStore';
-import FeedbackStore from '../../stores/feedbackStore';
-import QuestionStore from '../../stores/questionStore';
+import {RootStoreContext}  from '../../stores/rootStore';
 
 const AdminLayout = () => {
-    const schoolStore = useContext(SchoolStore);
-    const questionStore = useContext(QuestionStore);
-    const feedbackStore = useContext(FeedbackStore);
+    const rootStore = useContext(RootStoreContext);
+    const {loadFeedback} = rootStore.feedbackStore;
+    const { loadQuestions} = rootStore.questionStore;
+    const {loadSchools} = rootStore.schoolStore;
+ 
     useEffect(() => {
-        schoolStore.loadSchools();
-        questionStore.loadQuestions();
-        feedbackStore.loadFeedback();
+        loadSchools();
+        loadQuestions();
+        loadFeedback();
 
-    }, []);
+    }, [loadFeedback, loadSchools, loadQuestions]);
         return (
             <div className={classes.AdminLayout}>
                  <SideNav/>

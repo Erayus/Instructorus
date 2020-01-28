@@ -1,9 +1,16 @@
 import firebase from "../firebase";
 import {observable, action} from 'mobx';
-import { createContext } from "react";
+// import { createContext } from "react";
 import { IQuestion } from "../models/question";
+import { RootStore } from "./rootStore";
 
-class QuestionStore {
+export default class QuestionStore {
+
+    rootStore: RootStore;
+    constructor(rootStore: RootStore){
+        this.rootStore = rootStore;
+    }
+
     @observable questions: IQuestion[] = [];
     private questionRef = firebase.db.ref('questions');
 
@@ -33,4 +40,4 @@ class QuestionStore {
     }
 }
 
-export default createContext(new QuestionStore());
+// export default createContext(new QuestionStore());

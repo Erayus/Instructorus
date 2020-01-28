@@ -7,10 +7,8 @@ import { RouteComponentProps } from "react-router";
 import Question from "../../components/Question/Question";
 import classes from "./Survey.module.css";
 import { IFeedback } from "../../models/feedback";
-import FeedbackStore from "../../stores/feedbackStore";
-import SchoolStore from "../../stores/schoolStore";
 import { ISchool } from './../../models/school';
-import QuestionStore from "../../stores/questionStore";
+import { RootStoreContext } from "../../stores/rootStore";
 
 interface DetailParams {
     schoolId: string
@@ -20,16 +18,14 @@ const Survey: React.FC<RouteComponentProps<DetailParams>> = ({match, history}) =
 
     const [surveyingSchool, setSurveyingSchool] = useState<ISchool>();
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState<number>(0);
-    const questionStore = useContext(QuestionStore)
-    const schoolStore = useContext(SchoolStore);
-    const feedbackStore = useContext(FeedbackStore);
+    const rootStore = useContext(RootStoreContext)
+    const { schools } = rootStore.schoolStore;
+    const { addFeedback, removeFeedback, submitFeedback} = rootStore.feedbackStore;
+    const { questions } = rootStore.questionStore;
 
     useEffect(()=> {
-        schoolStore.loadSchools();
-        questionStore.loadQuestions();
-        setSurveyingSchool(schoolStore.schools.filter(school => school.id === match.params.schoolId)[0]);
-
-    }, [match.params.schoolId, schoolStore.schools.length, questionStore, schoolStore])
+        setSurveyingSchool(schools.filter(school => school.id === match.params.schoolId)[0]);
+    }, [match.params.schoolId, schools.length, rootStore])
 
   
     const back = () => {
@@ -37,8 +33,7 @@ const Survey: React.FC<RouteComponentProps<DetailParams>> = ({match, history}) =
             history.replace('/');
         }else {
             setCurrentQuestionIndex((prevQuestionIndex => prevQuestionIndex - 1));
-            feedbackStore.removeFeedback();
-            console.log(feedbackStore.surveyingFeedback);
+            removeFeedback();
         }
     };
 
@@ -53,27 +48,27 @@ const Survey: React.FC<RouteComponentProps<DetailParams>> = ({match, history}) =
             schoolId: match.params.schoolId
         }
 
-        feedbackStore.addFeedback(newFeedback);
+        addFeedback(newFeedback);
 
-        if (currentQuestionIndex < questionStore.questions.length - 1){   
+        if (currentQuestionIndex < questions.length - 1){   
             setCurrentQuestionIndex((prevQuestionIndex) => prevQuestionIndex + 1);
         } else {
-            feedbackStore.submitFeedback();
+            submitFeedback();
             history.replace('/');
         }
     }
 
 
     let displayingQuestion: any = "Loading questions...";
-    if (questionStore.questions.length > 0) {
+    if (questions.length > 0) {
         displayingQuestion = <Question
-                                    id={questionStore.questions[currentQuestionIndex]?.id}
-                                    type={questionStore.questions[currentQuestionIndex]?.type}
+                                    id={questions[currentQuestionIndex]?.id}
+                                    type={questions[currentQuestionIndex]?.type}
                                     responded={(id: string, type: string, response: string) => onAnswer(id, type, response)}
                                     >
-                                    {questionStore.questions[currentQuestionIndex]?.content}
+                                    {questions[currentQuestionIndex]?.content}
                                     </Question>
-    } else if (questionStore.questions.length === 0) {
+    } else if (questions.length === 0) {
         displayingQuestion = "No questions added yet";
     }
 
@@ -94,7 +89,7 @@ const Survey: React.FC<RouteComponentProps<DetailParams>> = ({match, history}) =
                             {displayingQuestion} 
                         </div>
                         <div>
-                            <h6>{currentQuestionIndex + 1}/{questionStore.questions.length}</h6>
+                            <h6>{currentQuestionIndex + 1}/{questions.length}</h6>
                         </div>
                     </div>
                 </WhiteBox>
