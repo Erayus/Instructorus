@@ -13,7 +13,7 @@ const DoughNutChart = (props) =>{
         ]
       };
     return (
-        <div style={{width: 350}}>
+        <div  style={{maxWidth: '100%'}} className="text-center ">
             <h5>{props.title}</h5>
             <Chart  type='doughnut' data={data} />   
         </div>
