@@ -32,7 +32,7 @@ const SchoolsReport: React.FC<RouteComponentProps>= ({history}) => {
             </MDBRow>
             <MDBRow className="mt-2 mb-5" end>
                 <MDBCol>
-                    <div className="z-depth-1  d-flex " >
+                    <div className="z-depth-1 d-flex mb-3" >
                         <div className="deep-orange p-3 rounded mr-2">
                             <MDBIcon className="text-white" icon="school" size="3x"/>
                         </div>
@@ -44,7 +44,7 @@ const SchoolsReport: React.FC<RouteComponentProps>= ({history}) => {
                 </MDBCol>
 
                 <MDBCol>
-                    <div className="z-depth-1 rounded">
+                    <div className="z-depth-1 rounded  mb-3">
                     <div className="z-depth-1  d-flex " >
                         <div className="cyan p-3 rounded mr-2">
                             <MDBIcon className="text-white" icon="comment" size="3x"/>
@@ -58,7 +58,7 @@ const SchoolsReport: React.FC<RouteComponentProps>= ({history}) => {
                 </MDBCol>
 
                 <MDBCol>
-                <div className="z-depth-1 rounded">
+                <div className="z-depth-1 rounded  mb-3">
                     <div className="z-depth-1  d-flex " >
                         <div className="green p-3 rounded mr-2">
                             <MDBIcon far className="text-white" icon="smile" size="3x"/>

@@ -8,7 +8,7 @@ const SideNav = (props) => {
     return  (
         <React.Fragment>
             <div className={[classes.SideNav, "aqua-gradient", "text-center"].join(" ")}>
-                <div className="pt-2"style={{height: '50px', borderBottom: '2px solid white'}}>
+                <div className={[classes.Title ,"pt-2"].join(" ")} style={{height: '50px', borderBottom: '2px solid white'}}>
                     <h2 style={{fontFamily: "Teko, sans-serif", fontSize: '26px'}}>INSTRUCTORUS</h2>
                 </div>
                 <div className={classes.Logo}>

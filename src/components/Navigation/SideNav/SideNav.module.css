@@ -42,8 +42,15 @@
     color: rgba(255, 152, 0, 0.7);
 }
 
+
 @media (max-width: 768px) { 
     .SideNav {
-        display: none
+        width: 50px;
     }
+    .SideNav nav, .Logo, .Title{ 
+        display: none;
+    }
+    
+
 }
+

@@ -4,3 +4,10 @@
 .AdminContent {
     margin-left: 250px;
 }
+
+@media (max-width: 768px) { 
+    .AdminContent {
+        margin-left: 50px;
+    }
+
+}

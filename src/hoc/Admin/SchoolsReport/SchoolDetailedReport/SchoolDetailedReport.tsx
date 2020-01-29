@@ -35,17 +35,17 @@ const SchoolDetailedReport: React.FC<RouteComponentProps<DetailParams>> = ({matc
             <MDBRow >
                 <MDBCol md="4" >
                     <div className="rounded z-depth-1 p-3">
-                        <DoughNutChart title="Did you have fun today?" noOfYes="70" noOfNo="30" />
+                        <DoughNutChart title="Did you have fun today?" noOfYes="80" noOfNo="20" />
                     </div>
                 </MDBCol>
                 <MDBCol md="4"  >
                     <div className="rounded z-depth-1 p-3 ">
-                        <DoughNutChart title="Did you have fun today?" noOfYes="70" noOfNo="30" />
+                        <DoughNutChart title="Did you have fun today?" noOfYes="73" noOfNo="27" />
                     </div>
                 </MDBCol>
                 <MDBCol md="4"  >
                     <div className="rounded z-depth-1 p-3 ">
-                        <DoughNutChart title="Did you have fun today?" noOfYes="70" noOfNo="30" />
+                        <DoughNutChart title="Did you have fun today?" noOfYes="53" noOfNo="47" />
                     </div>
                 </MDBCol>
             </MDBRow>
