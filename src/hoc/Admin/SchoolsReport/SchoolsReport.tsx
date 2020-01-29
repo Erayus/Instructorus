@@ -81,7 +81,7 @@ const SchoolsReport: React.FC<RouteComponentProps>= ({history}) => {
                              <MDBCard >
                                 <MDBCardImage className="img-fluid mx-auto" src={school.logoUrl} waves style={{height: '200px'}} />
                                 <MDBCardBody>
-                                    <MDBCardTitle>{school.name}</MDBCardTitle>
+                                    <MDBCardTitle className="text-center">{school.name}</MDBCardTitle>
                                  
                                 <MDBBtn color="orange" className="mx-auto btn-block" onClick={() => selectSchoolHandler(school.id)} >View</MDBBtn>
                                 </MDBCardBody>
