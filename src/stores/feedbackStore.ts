@@ -26,17 +26,17 @@ export default class FeedbackStore {
     @action getFeedbackBySchoolId = (schoolId: string) =>  {
         if (this.feedback.length > 0){
             let feedbackBySchoolId = this.feedback.filter(feedback => feedback.schoolId === schoolId);
-            console.log(toJS(feedbackBySchoolId, {recurseEverything : true}))
+            // console.log(toJS(feedbackBySchoolId, {recurseEverything : true}))
             return feedbackBySchoolId;
         } else {
             console.log("No feedback given yet")
         }
     }
 
-    @action getFeedbackByQuestionIdAndQuestionId = (schoolId: string, questionId: string) => {
+    @action getFeedbackBySchoolIdAndQuestionId = (schoolId: string, questionId: string) => {
         if (this.feedback.length > 0) {
             let requestingFeedback = this.feedback.filter(feedback => feedback.schoolId === schoolId && feedback.questionId === questionId);
-            console.log(toJS(requestingFeedback, {recurseEverything : true}))
+            // console.log(toJS(requestingFeedback, {recurseEverything : true}))
             return requestingFeedback;
         } else {
 
