@@ -13,17 +13,53 @@ interface DetailParams {
 
 const SchoolDetailedReport: React.FC<RouteComponentProps<DetailParams>> = ({match, history}) => {
     const rootStore = useContext(RootStoreContext);
-    const {getFeedbackBySchoolId, feedback} = rootStore.feedbackStore;
+    const {feedback, getFeedbackBySchoolId, getFeedbackByQuestionIdAndQuestionId } = rootStore.feedbackStore;
     const {schools} = rootStore.schoolStore;
+    const {questions} = rootStore.questionStore;
     const [feedbackForSchool, setFeedbackForSchool] = useState<IFeedback[]>();
     const [curSchool, setCurrentSchool] = useState<ISchool>()
 
     useEffect(() => {
-        // feedbackStore.loadFeedback();
-        setFeedbackForSchool(getFeedbackBySchoolId(match.params.schoolId)); 
-        setCurrentSchool(schools.filter(school => school.id === match.params.schoolId)[0])
-    },[rootStore, feedback.length, match.params.schoolId])
+        setCurrentSchool(schools.filter(school => school.id === match.params.schoolId)[0]);
+        
+        if (questions.length > 0) {
+            generateYesNoReport();
+        }
 
+    },[rootStore, feedback.length, match.params.schoolId, schools, questions])
+
+    const generateYesNoReport = () => {
+        questions.forEach(question => {
+            const feedbackData = getFeedbackByQuestionIdAndQuestionId(curSchool!.id, question.id);
+            let numOfYes = 0;
+            let numOfNo = 0;
+            
+            
+        })
+    }
+
+    // if (questions) {
+    // const displayingChartResult =  (
+    //     questions.forEach(question =>{
+    //         const feedbackData = getFeedbackByQuestionIdAndQuestionId(curSchool!.id, question.id);
+    //         let numOfYes = 0;
+    //         let numOfNo = 0;
+
+    //         feedbackData!.forEach((eachFeedback: IFeedback) => {
+    //             if (eachFeedback.response === "yes"){
+    //                 numOfYes += 1;
+    //             }
+    //         })
+    //         return (
+    //                 <MDBCol md="4" >
+    //                     <div className="rounded z-depth-1 p-3">
+    //                         <DoughNutChart title={question.content} noOfYes="80" noOfNo="20" />
+    //                     </div>
+    //                 </MDBCol>
+    //             )
+    //         })
+    //     )
+    // }
 
 
     return (
@@ -32,22 +68,8 @@ const SchoolDetailedReport: React.FC<RouteComponentProps<DetailParams>> = ({matc
                     <h1 className="text-center">{curSchool?.name}</h1>
                 </div>
             
-            <MDBRow >
-                <MDBCol md="4" >
-                    <div className="rounded z-depth-1 p-3">
-                        <DoughNutChart title="Did you have fun today?" noOfYes="80" noOfNo="20" />
-                    </div>
-                </MDBCol>
-                <MDBCol md="4"  >
-                    <div className="rounded z-depth-1 p-3 ">
-                        <DoughNutChart title="Did you have fun today?" noOfYes="73" noOfNo="27" />
-                    </div>
-                </MDBCol>
-                <MDBCol md="4"  >
-                    <div className="rounded z-depth-1 p-3 ">
-                        <DoughNutChart title="Did you have fun today?" noOfYes="53" noOfNo="47" />
-                    </div>
-                </MDBCol>
+            <MDBRow>
+             
             </MDBRow>
         </div>
     )
