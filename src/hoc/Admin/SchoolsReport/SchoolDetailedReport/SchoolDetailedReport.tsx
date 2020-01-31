@@ -14,7 +14,7 @@ interface DetailParams {
 
 const SchoolDetailedReport: React.FC<RouteComponentProps<DetailParams>> = ({match, history}) => {
     const rootStore = useContext(RootStoreContext);
-    const {feedback, getFeedbackBySchoolId, getFeedbackBySchoolIdAndQuestionId } = rootStore.feedbackStore;
+    const {feedback, getFeedbackForReport } = rootStore.feedbackStore;
     const {schools} = rootStore.schoolStore;
     const {questions} = rootStore.questionStore;
     const [yesnoReportDataArray, setYesnoReportDataArray] = useState<any[]>([]);
@@ -24,30 +24,33 @@ const SchoolDetailedReport: React.FC<RouteComponentProps<DetailParams>> = ({matc
         setCurrentSchool(schools.filter(school => school.id === match.params.schoolId)[0]);
         
         if (questions.length > 0 && feedback.length > 0 && curSchool) {
-            generateYesNoReport();
+            generateReport("yesno");
         }
 
     },[rootStore, feedback.length, match.params.schoolId, schools, questions, curSchool])
 
-    const generateYesNoReport = () => {
-        let resultArray: any[] = [];
+    const generateReport = (type: string) => {
 
-        questions.forEach(question => {
-            let feedbackData = getFeedbackBySchoolIdAndQuestionId(curSchool!.id, question.id);
-            let noOfYes = 0;
-            let noOfNo = 0;
-            for (let eachFeedback of feedbackData! ) {
-                eachFeedback.response === "Yes" ?  noOfYes++ : noOfNo++;
-            }
-            let reportData = {
-                title: question.content,
-                noOfYes: noOfYes,
-                noOfNo: noOfNo
-            }
-            resultArray.push(reportData);
-        })
-
-        setYesnoReportDataArray(resultArray);
+        switch (type) {
+            case "yesno":
+                let resultArray: any[] = [];
+                questions.forEach(question => {
+                    let feedbackData = getFeedbackForReport(curSchool!.id, question.id, type );
+                    let noOfYes = 0;
+                    let noOfNo = 0;
+                    for (let eachFeedback of feedbackData! ) {
+                        eachFeedback.response === "Yes" ?  noOfYes++ : noOfNo++;
+                    }
+                    let reportData = {
+                        title: question.content,
+                        noOfYes: noOfYes,
+                        noOfNo: noOfNo
+                    }
+                    resultArray.push(reportData);
+                })
+                setYesnoReportDataArray(resultArray);
+        }
+      
 
     }
 

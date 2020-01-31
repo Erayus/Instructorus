@@ -33,7 +33,7 @@ export default class FeedbackStore {
         }
     }
 
-    @action getFeedbackBySchoolIdAndQuestionId = (schoolId: string, questionId: string) => {
+    @action getFeedbackForReport = (schoolId: string, questionId: string, questionType: string) => {
         if (this.feedback.length > 0) {
             let requestingFeedback = this.feedback.filter(feedback => feedback.schoolId === schoolId && feedback.questionId === questionId);
             // console.log(toJS(requestingFeedback, {recurseEverything : true}))
