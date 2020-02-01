@@ -7,11 +7,13 @@ import SchoolForm from './SchoolForm/SchoolForm';
 import { observer } from 'mobx-react-lite';
 import { RouteComponentProps } from 'react-router-dom';
 import { RootStoreContext } from '../../../stores/rootStore';
+import classes from './SchoolsReport.module.css';
+
 
 const SchoolsReport: React.FC<RouteComponentProps>= ({history}) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const rootStore = useContext(RootStoreContext);
-    const {schools} = rootStore.schoolStore;
+    const {schools, removeSchool} = rootStore.schoolStore;
     const {feedback} = rootStore.feedbackStore;
 
     useEffect(()=> {
@@ -23,6 +25,13 @@ const SchoolsReport: React.FC<RouteComponentProps>= ({history}) => {
     }
     const selectSchoolHandler = (schoolId: string) => {
         history.push("/admin/schools-report/"+ schoolId)
+    }
+
+    const removeSchoolHandler = (schoolId: string) => {
+         if (window.confirm("Are you sure you want to remove this school?")) {
+            removeSchool(schoolId);
+        };
+
     }
     
     return (
@@ -72,14 +81,20 @@ const SchoolsReport: React.FC<RouteComponentProps>= ({history}) => {
                 </MDBCol>
                 
             </MDBRow>
-
             <MDBRow>
                 {schools.map(school => {
                     return (
-
-                        <MDBCol key={school.id} sm="12" md="6" className="my-3">
-                             <MDBCard >
-                                <MDBCardImage className="img-fluid mx-auto" src={school.logoUrl} waves style={{height: '200px'}} />
+                        <MDBCol key={school.key} sm="12" md="6" className="my-3">
+                             <MDBCard className={classes.SchoolCard} >
+                                <MDBIcon 
+                                    icon="window-close" 
+                                    size="2x" 
+                                    className={[ classes.DeleteSchoolBtn, 'text-danger'].join(" ")}
+                                    onClick={()=> removeSchoolHandler(school.key!)}
+                                    />
+                                <MDBCardImage 
+                                    className={[classes.SchoolLogo, 'img-fluid mx-auto'].join(" ")} 
+                                    src={school.logoUrl} waves style={{height: '200px'}} />
                                 <MDBCardBody>
                                     <MDBCardTitle className="text-center">{school.name}</MDBCardTitle>
                                  

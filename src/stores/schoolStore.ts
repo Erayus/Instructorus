@@ -1,5 +1,5 @@
 import firebase from "../firebase";
-import {observable, action} from 'mobx';
+import {observable, action, toJS} from 'mobx';
 // import { createContext } from "react";
 import { ISchool } from "../models/school";
 import { RootStore } from "./rootStore";
@@ -21,9 +21,14 @@ export default class SchoolStore {
             let loadedSchools: ISchool[] = [];
             snapshot.forEach((childSnapshot: any) => {
                 // var childKey = childSnapshot.key;
-                loadedSchools.push(childSnapshot.val());
+                let school = {
+                    ...childSnapshot.val(),
+                    key: childSnapshot.key
+                }
+                loadedSchools.push(school);
             });
             this.schools = loadedSchools;
+            console.log(toJS(this.schools));
         })
     }  
 
@@ -35,9 +40,9 @@ export default class SchoolStore {
         }
         
     }
-    @action removeSchool = async (id: string) => {
-        const deletingSchool = this.schools.splice( this.schools.findIndex(s => s.id  === id),1)[0];
-        this.schoolRef.remove(deletingSchool);
+    @action removeSchool = async (key: string) => {
+        this.schools.splice( this.schools.findIndex(s => s.key  === key),1);
+        await this.schoolRef.child(key).remove();
     }
 }
 

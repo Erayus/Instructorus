@@ -1,0 +1,21 @@
+.DeleteSchoolBtn{
+    position: absolute; 
+    right: 5px;
+    top: 8px;
+    z-index: 100;
+    opacity: 0;
+    transition: all 0.4s linear;
+    cursor: pointer;
+}
+
+.SchoolCard:hover .DeleteSchoolBtn {
+    opacity: 1;
+    top: 5px;
+}
+.SchoolLogo {
+
+    transition: all 0.3s linear;
+}
+.SchoolCard:hover .SchoolLogo {
+    transform: scale(1.2)
+}
