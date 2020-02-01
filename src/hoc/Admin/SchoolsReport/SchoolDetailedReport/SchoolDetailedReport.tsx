@@ -3,7 +3,7 @@ import { RouteComponentProps } from 'react-router-dom';
 import { observer } from 'mobx-react-lite';
 import { IFeedback } from '../../../../models/feedback';
 import { RootStoreContext } from '../../../../stores/rootStore';
-import { MDBRow, MDBCol } from 'mdbreact';
+import { MDBRow, MDBCol, MDBBtn, MDBIcon } from 'mdbreact';
 import DoughNutChart from '../../../../components/DoughNutChart/DoughnutChart';
 import { ISchool } from '../../../../models/school';
 import { toJS } from "mobx";
@@ -50,15 +50,23 @@ const SchoolDetailedReport: React.FC<RouteComponentProps<DetailParams>> = ({matc
                 })
                 setYesnoReportDataArray(resultArray);
         }
-      
+    }
 
+    const goBackHandle = () => {
+        history.goBack();
     }
 
     return (
         <div className="px-2 mt-5 ">
-                <div className="mb-5">
-                    <h1 className="text-center">{curSchool?.name}</h1>
-                </div>
+
+            <MDBBtn onClick={goBackHandle}> 
+                <MDBIcon icon="arrow-left mr-1" />
+                Back
+            </MDBBtn>
+
+            <div className="mb-5">
+                <h1 className="text-center bolder">{curSchool?.name}</h1>
+            </div>
             
             <MDBRow>
                 {yesnoReportDataArray.map(reportData => {

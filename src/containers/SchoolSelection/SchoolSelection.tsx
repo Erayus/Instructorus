@@ -55,7 +55,6 @@ const SchoolSelection: React.FC<RouteComponentProps> =  ({history}) => {
                 }
                 {selectedSchool?.name !== "none"  && schools.length > 0  ? <MDBBtn className="mt-4" color="success" onClick={startSurvey}> Start Survey </MDBBtn> : null }
 
-                
             </div>
     )
     
