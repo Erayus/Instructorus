@@ -71,7 +71,7 @@ const SchoolDetailedReport: React.FC<RouteComponentProps<DetailParams>> = ({matc
             </div>
             
             <MDBRow>
-                {yesnoReportDataArray.map(reportData => {
+                { yesnoReportDataArray.length > 0 && yesnoReportDataArray.map(reportData => {
                     return (
                     <MDBCol md="4" key={reportData.title} >
                          <div className="rounded z-depth-1 p-3">
