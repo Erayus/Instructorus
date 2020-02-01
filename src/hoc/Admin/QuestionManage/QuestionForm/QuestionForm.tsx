@@ -17,14 +17,14 @@ const QuestionForm :React.FC<IProps> = ({onQuestionAdded, showStatus}) => {
         id: '',
         type: '',
         content: ''
-    }
+    };
     const [question, setQuestion] = useState<IQuestion>(initialQuestionForm);
     const rootStore = useContext(RootStoreContext);
-    const {questions, addQuestion} = rootStore.questionStore;
+    const { addQuestion} = rootStore.questionStore;
 
     useEffect(()=> {
         setQuestion({...question, type: currentQuestionType.current!.value});  
-    },[showStatus])
+    },[showStatus, setQuestion])
 
     const addQuestionHandler = (e: SyntheticEvent<HTMLButtonElement>) => {
         e.preventDefault();

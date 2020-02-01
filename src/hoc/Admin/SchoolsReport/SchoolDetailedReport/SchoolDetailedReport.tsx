@@ -1,16 +1,15 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState, useCallback } from 'react';
 import { RouteComponentProps } from 'react-router-dom';
 import { observer } from 'mobx-react-lite';
-import { IFeedback } from '../../../../models/feedback';
 import { RootStoreContext } from '../../../../stores/rootStore';
 import { MDBRow, MDBCol, MDBBtn, MDBIcon } from 'mdbreact';
 import DoughNutChart from '../../../../components/DoughNutChart/DoughnutChart';
 import { ISchool } from '../../../../models/school';
-import { toJS } from "mobx";
 
 interface DetailParams {
     schoolId: string
 }
+
 
 const SchoolDetailedReport: React.FC<RouteComponentProps<DetailParams>> = ({match, history}) => {
     const rootStore = useContext(RootStoreContext);
@@ -20,17 +19,9 @@ const SchoolDetailedReport: React.FC<RouteComponentProps<DetailParams>> = ({matc
     const [yesnoReportDataArray, setYesnoReportDataArray] = useState<any[]>([]);
     const [curSchool, setCurrentSchool] = useState<ISchool>()
 
-    useEffect(() => {
-        setCurrentSchool(schools.filter(school => school.id === match.params.schoolId)[0]);
-        
-        if (questions.length > 0 && feedback.length > 0 && curSchool) {
-            generateReport("yesno");
-        }
 
-    },[rootStore, feedback.length, match.params.schoolId, schools, questions, curSchool])
-
-    const generateReport = (type: string) => {
-
+    
+    const generateReport = useCallback((type: string) => {
         switch (type) {
             case "yesno":
                 let resultArray: any[] = [];
@@ -50,7 +41,18 @@ const SchoolDetailedReport: React.FC<RouteComponentProps<DetailParams>> = ({matc
                 })
                 setYesnoReportDataArray(resultArray);
         }
-    }
+    }, [questions, curSchool, getFeedbackForReport])
+
+    useEffect(() => {
+        setCurrentSchool(schools.filter(school => school.id === match.params.schoolId)[0]);
+        
+        if (questions.length > 0 && feedback.length > 0 && curSchool) {
+            generateReport("yesno");
+        }
+
+    },[rootStore, feedback.length, match.params.schoolId, schools, questions, curSchool, generateReport])
+
+ 
 
     const goBackHandle = () => {
         history.goBack();

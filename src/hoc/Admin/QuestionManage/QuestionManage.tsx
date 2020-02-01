@@ -1,5 +1,4 @@
-import React, { useState, useContext, useEffect } from 'react'
-import QuestionStore from '../../../stores/questionStore';
+import React, { useState, useContext } from 'react'
 import { MDBRow, MDBBtn, MDBCol, MDBIcon, MDBBadge } from 'mdbreact';
 import Modal from '../../../components/UI/Modal/Modal';
 import QuestionForm from './QuestionForm/QuestionForm';

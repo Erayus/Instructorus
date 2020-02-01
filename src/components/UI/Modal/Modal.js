@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import { MDBCard, MDBCardHeader, MDBCardBody, MDBModalFooter} from 'mdbreact';
+import { MDBCard, MDBCardHeader, MDBCardBody} from 'mdbreact';
 
 import classes from './Modal.module.css';
 import Backdrop from '../Backdrop/Backdrop';

@@ -2,7 +2,6 @@ import firebase from "../firebase";
 import {observable, action, reaction} from 'mobx';
 import { IFeedback } from "../models/feedback";
 // import { createContext } from "react";
-import { toJS } from "mobx";
 import {RootStore} from "./rootStore";
 
 export default class FeedbackStore {
