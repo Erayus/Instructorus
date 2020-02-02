@@ -41,8 +41,9 @@ export default class SchoolStore {
         
     }
     @action removeSchool = async (key: string) => {
-        this.schools.splice( this.schools.findIndex(s => s.key  === key),1);
+        const removingSchool = this.schools.splice( this.schools.findIndex(s => s.key  === key),1)[0];
         await this.schoolRef.child(key).remove();
+        this.rootStore.feedbackStore.removeFeedback(removingSchool.id);
     }
 }
 

@@ -20,7 +20,7 @@ const Survey: React.FC<RouteComponentProps<DetailParams>> = ({match, history}) =
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState<number>(0);
     const rootStore = useContext(RootStoreContext)
     const { schools } = rootStore.schoolStore;
-    const { addFeedback, removeFeedback, submitFeedback} = rootStore.feedbackStore;
+    const { addFeedback, undoFeedback, submitFeedback} = rootStore.feedbackStore;
     const { questions } = rootStore.questionStore;
 
     useEffect(()=> {
@@ -33,7 +33,7 @@ const Survey: React.FC<RouteComponentProps<DetailParams>> = ({match, history}) =
             history.replace('/');
         }else {
             setCurrentQuestionIndex((prevQuestionIndex => prevQuestionIndex - 1));
-            removeFeedback();
+            undoFeedback();
         }
     };
 
