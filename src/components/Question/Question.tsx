@@ -39,7 +39,7 @@ const question: React.FC<IProps> = (props) => {
 
     return (
         <div>
-            <h3 style={{fontSize: "24px", fontWeight: "bolder"}}>{props.content}</h3>
+            <h3 style={{fontSize: "24px"}}>{props.content}</h3>
             {questionBody}
         </div>
     )

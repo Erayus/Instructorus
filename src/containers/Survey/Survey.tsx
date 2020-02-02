@@ -61,20 +61,8 @@ const Survey: React.FC<RouteComponentProps<DetailParams>> = ({match, history}) =
     }
 
 
-    let displayingQuestion: any = "Loading questions...";
-    if (questions.length > 0) {
-        displayingQuestion = <Question
-                                    id={questions[currentQuestionIndex]?.id}
-                                    content={questions[currentQuestionIndex]?.content}
-                                    type={questions[currentQuestionIndex]?.type}
-                                    onResponded={(id: string, type: string, response: string|number|undefined) => onAnswer(id, type, response)}
-                              />
-    } else if (questions.length === 0) {
-        displayingQuestion = "No questions added yet";
-    }
 
     return (
-
             <React.Fragment>
                 <WhiteBox maxWidth="550px">
                     <div className="text-center">
@@ -87,7 +75,14 @@ const Survey: React.FC<RouteComponentProps<DetailParams>> = ({match, history}) =
                         </div>
                         
                         <div className={classes.SurveyBody}>
-                            {displayingQuestion} 
+                            {questions.length > 0 ? (
+                                <Question
+                                 id={questions[currentQuestionIndex]?.id}
+                                 content={questions[currentQuestionIndex]?.content}
+                                 type={questions[currentQuestionIndex]?.type}
+                                 onResponded={(id: string, type: string, response: string|number|undefined) => onAnswer(id, type, response)}
+                                />
+                            ) :  "Loading questions..." } 
                         </div>
                         <div>
                             <h6>{currentQuestionIndex + 1}/{questions.length}</h6>
