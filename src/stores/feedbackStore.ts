@@ -3,7 +3,6 @@ import {observable, action, reaction, toJS} from 'mobx';
 import { IFeedback } from "../models/feedback";
 // import { createContext } from "react";
 import {RootStore} from "./rootStore";
-import { act } from "react-dom/test-utils";
 
 export default class FeedbackStore {
     rootStore: RootStore;

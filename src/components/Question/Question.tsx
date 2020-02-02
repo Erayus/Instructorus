@@ -1,18 +1,18 @@
-import {MDBBtn} from 'mdbreact';
+import {MDBBtn, MDBTypography} from 'mdbreact';
 import React from 'react';
-import RatingScale from '../RatingChart/RatingChart';
+import RatingScale from '../RatingScale/RatingScale';
 
 interface IProps{
     id: string;
     content: string;
     type: string;
-    responded: (id: string, type: string, response: string | number) => void;
+    onResponded: (id: string, type: string, response: string | number | undefined) => void;
 }
 
 const question: React.FC<IProps> = (props) => {
 
-    const questionAnswered = (response: string) => {
-        props.responded(props.id, props.type, response)
+    const questionAnsweredHandler = (response: string | number | undefined) => {
+        props.onResponded(props.id, props.type, response)
     }
 
     let questionBody = null;
@@ -20,16 +20,17 @@ const question: React.FC<IProps> = (props) => {
         case 'yesno':
             questionBody = (
                 <React.Fragment>
-                    <MDBBtn color="danger" onClick={()=> questionAnswered('No')}>No</MDBBtn>
-                    <MDBBtn color="success" onClick={()=> questionAnswered('Yes')}>Yes</MDBBtn>
+                    <MDBBtn color="danger" onClick={()=> questionAnsweredHandler('No')}>No</MDBBtn>
+                    <MDBBtn color="success" onClick={()=> questionAnsweredHandler('Yes')}>Yes</MDBBtn>
                 </React.Fragment>    
             );
             break;
         case 'rating':
             questionBody = (
                 <React.Fragment>
-                    <RatingScale sizeInPixel="25px"/>
+                    <RatingScale sizeInPixel="40px" onRated={questionAnsweredHandler}/>
                 </React.Fragment>
+                   
             )
             break;
         default:
@@ -38,7 +39,7 @@ const question: React.FC<IProps> = (props) => {
 
     return (
         <div>
-            <h4>{props.content}</h4>
+            <h3 style={{fontSize: "24px", fontWeight: "bolder"}}>{props.content}</h3>
             {questionBody}
         </div>
     )

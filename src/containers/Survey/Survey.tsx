@@ -9,6 +9,7 @@ import classes from "./Survey.module.css";
 import { IFeedback } from "../../models/feedback";
 import { ISchool } from './../../models/school';
 import { RootStoreContext } from "../../stores/rootStore";
+import { MDBTypography } from "mdbreact";
 
 interface DetailParams {
     schoolId: string
@@ -37,7 +38,7 @@ const Survey: React.FC<RouteComponentProps<DetailParams>> = ({match, history}) =
         }
     };
 
-    const onAnswer = (questionId: string, type: string, response: string | number) => {
+    const onAnswer = (questionId: string, type: string, response: string | number | undefined) => {
         // Add new answer to the answers 
         let newFeedback: IFeedback = {
             id: String(Math.random()),
@@ -66,7 +67,7 @@ const Survey: React.FC<RouteComponentProps<DetailParams>> = ({match, history}) =
                                     id={questions[currentQuestionIndex]?.id}
                                     content={questions[currentQuestionIndex]?.content}
                                     type={questions[currentQuestionIndex]?.type}
-                                    responded={(id: string, type: string, response: string|number) => onAnswer(id, type, response)}
+                                    onResponded={(id: string, type: string, response: string|number|undefined) => onAnswer(id, type, response)}
                               />
     } else if (questions.length === 0) {
         displayingQuestion = "No questions added yet";
@@ -77,12 +78,12 @@ const Survey: React.FC<RouteComponentProps<DetailParams>> = ({match, history}) =
             <React.Fragment>
                 <WhiteBox maxWidth="550px">
                     <div className="text-center">
-                        <button type="button" className="btn rgba-blue-strong px-3 py-2 ml-3 float-left" onClick={back}>
+                        <button type="button" className="btn rgba-blue-strong px-3 py-2 m-2 float-left" onClick={back}>
                             <i className="fas fa-arrow-left text-white"></i>
                         </button>
 
                         <div className={classes.SurveyHead}>
-                            <h2 className="text-aqua" style={{"fontWeight": "bold"}}>{surveyingSchool ? surveyingSchool!.name : null}</h2>
+                            <h1 style={{fontSize: "34px", fontWeight: "bolder"}} >{surveyingSchool ? surveyingSchool!.name : null}</h1>
                         </div>
                         
                         <div className={classes.SurveyBody}>

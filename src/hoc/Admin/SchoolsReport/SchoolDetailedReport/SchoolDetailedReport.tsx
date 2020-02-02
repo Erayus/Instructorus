@@ -73,8 +73,8 @@ const SchoolDetailedReport: React.FC<RouteComponentProps<DetailParams>> = ({matc
             <MDBRow>
                 { yesnoReportDataArray.length > 0 && yesnoReportDataArray.map(reportData => {
                     return (
-                    <MDBCol md="4" key={reportData.title} >
-                         <div className="rounded z-depth-1 p-3">
+                    <MDBCol md="6" lg="4" key={reportData.title} >
+                         <div className="rounded z-depth-1 p-3 my-3">
                              <DoughNutChart title={reportData.title} noOfYes={reportData.noOfYes} noOfNo={reportData.noOfNo} />
                          </div>
                      </MDBCol>
