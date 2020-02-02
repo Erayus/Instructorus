@@ -5,4 +5,5 @@ export interface IFeedback {
     questionId: string;
     instructorId: string;
     schoolId: string;
+    dateGiven: Date;
 }

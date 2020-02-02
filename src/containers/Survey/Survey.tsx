@@ -37,7 +37,7 @@ const Survey: React.FC<RouteComponentProps<DetailParams>> = ({match, history}) =
         }
     };
 
-    const onAnswer = (questionId: string, type: string, response: string) => {
+    const onAnswer = (questionId: string, type: string, response: string | number) => {
         // Add new answer to the answers 
         let newFeedback: IFeedback = {
             id: String(Math.random()),
@@ -45,7 +45,8 @@ const Survey: React.FC<RouteComponentProps<DetailParams>> = ({match, history}) =
             response: response,
             questionId: questionId,
             instructorId: "1", //come from Redux Store later,
-            schoolId: match.params.schoolId
+            schoolId: match.params.schoolId, 
+            dateGiven: new Date(),
         }
 
         addFeedback(newFeedback);
@@ -63,11 +64,10 @@ const Survey: React.FC<RouteComponentProps<DetailParams>> = ({match, history}) =
     if (questions.length > 0) {
         displayingQuestion = <Question
                                     id={questions[currentQuestionIndex]?.id}
+                                    content={questions[currentQuestionIndex]?.content}
                                     type={questions[currentQuestionIndex]?.type}
-                                    responded={(id: string, type: string, response: string) => onAnswer(id, type, response)}
-                                    >
-                                    {questions[currentQuestionIndex]?.content}
-                                    </Question>
+                                    responded={(id: string, type: string, response: string|number) => onAnswer(id, type, response)}
+                              />
     } else if (questions.length === 0) {
         displayingQuestion = "No questions added yet";
     }

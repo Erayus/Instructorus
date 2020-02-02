@@ -1,10 +1,12 @@
 import {MDBBtn} from 'mdbreact';
 import React from 'react';
+import RatingScale from '../RatingChart/RatingChart';
 
 interface IProps{
     id: string;
+    content: string;
     type: string;
-    responded: (id: string, type: string, response: string) => void;
+    responded: (id: string, type: string, response: string | number) => void;
 }
 
 const question: React.FC<IProps> = (props) => {
@@ -23,13 +25,20 @@ const question: React.FC<IProps> = (props) => {
                 </React.Fragment>    
             );
             break;
+        case 'rating':
+            questionBody = (
+                <React.Fragment>
+                    <RatingScale sizeInPixel="25px"/>
+                </React.Fragment>
+            )
+            break;
         default:
             alert('Unsupported Question Type')
     }
 
     return (
         <div>
-            <h4>{props.children}</h4>
+            <h4>{props.content}</h4>
             {questionBody}
         </div>
     )
