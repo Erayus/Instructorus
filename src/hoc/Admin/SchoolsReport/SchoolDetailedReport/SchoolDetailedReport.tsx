@@ -25,8 +25,9 @@ const SchoolDetailedReport: React.FC<RouteComponentProps<DetailParams>> = ({matc
         switch (type) {
             case "yesno":
                 let resultArray: any[] = [];
-                questions.forEach(question => {
-                    let feedbackData = getFeedbackForReport(curSchool!.id, question.id, type );
+                let yesNoQuestions = questions.filter(q => q.type === "yesno")
+                yesNoQuestions.forEach(question => {
+                    let feedbackData = getFeedbackForReport(curSchool!.id, question.id, "yesno" );
                     let noOfYes = 0;
                     let noOfNo = 0;
                     for (let eachFeedback of feedbackData! ) {
@@ -34,12 +35,14 @@ const SchoolDetailedReport: React.FC<RouteComponentProps<DetailParams>> = ({matc
                     }
                     let reportData = {
                         title: question.content,
-                        noOfYes: noOfYes,
-                        noOfNo: noOfNo
+                        percentOfYes: Math.ceil((noOfYes/(noOfYes + noOfNo))*100),
+                        percentOfNo: Math.ceil((noOfNo/(noOfYes + noOfNo))*100)
                     }
                     resultArray.push(reportData);
                 })
                 setYesnoReportDataArray(resultArray);
+            case "rating":
+                
         }
     }, [questions, curSchool, getFeedbackForReport])
 
@@ -75,7 +78,7 @@ const SchoolDetailedReport: React.FC<RouteComponentProps<DetailParams>> = ({matc
                     return (
                     <MDBCol md="6" lg="4" key={reportData.title} >
                          <div className="rounded z-depth-1 p-3 my-3">
-                             <DoughNutChart title={reportData.title} noOfYes={reportData.noOfYes} noOfNo={reportData.noOfNo} />
+                             <DoughNutChart title={reportData.title} percentOfYes={reportData.percentOfYes} percentOfNo={reportData.percentOfNo} />
                          </div>
                      </MDBCol>
                     )
