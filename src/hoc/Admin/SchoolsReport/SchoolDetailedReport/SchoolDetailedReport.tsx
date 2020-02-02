@@ -78,7 +78,13 @@ const SchoolDetailedReport: React.FC<RouteComponentProps<DetailParams>> = ({matc
                     return (
                     <MDBCol md="6" lg="4" key={reportData.title} >
                          <div className="rounded z-depth-1 p-3 my-3">
-                             <DoughNutChart title={reportData.title} percentOfYes={reportData.percentOfYes} percentOfNo={reportData.percentOfNo} />
+                             <DoughNutChart 
+                                title={reportData.title}
+                                labels={["Yes(%), No(%)"]}
+                                chartData={[reportData.percentOfYes, reportData.percentOfNo]}
+                                backgroundColor={['#00C851', '#e53935']}
+                                hoverBackgroundColor={['#1b5e20', '#b71c1c']}
+                                />
                          </div>
                      </MDBCol>
                     )
