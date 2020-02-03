@@ -5,8 +5,7 @@ import { RootStoreContext } from '../../../../stores/rootStore';
 import { MDBRow, MDBCol, MDBBtn, MDBIcon } from 'mdbreact';
 import DoughNutChart from '../../../../components/DoughNutChart/DoughnutChart';
 import { ISchool } from '../../../../models/school';
-import { toJS } from 'mobx';
-import { IFeedback } from '../../../../models/feedback';
+
 import RatingScale from '../../../../components/RatingScale/RatingScale';
 
 interface DetailParams {
@@ -112,7 +111,7 @@ const SchoolDetailedReport: React.FC<RouteComponentProps<DetailParams>> = ({matc
                          <div className="rounded z-depth-1 p-3 my-3">
                              <DoughNutChart 
                                 title={yesnoData.title}
-                                labels={["Yes(%), No(%)"]}
+                                labels={["Yes(%)", "No(%)"]}
                                 chartData={[yesnoData.percentOfYes, yesnoData.percentOfNo]}
                                 backgroundColor={['#00C851', '#e53935']}
                                 hoverBackgroundColor={['#1b5e20', '#b71c1c']}
