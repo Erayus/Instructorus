@@ -5,10 +5,12 @@ const style = <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/semantic
 
 interface IProps {
     sizeInPixel: string,
-    onRated: (response: string |number | undefined) => void 
+    isReadOnly?: boolean | null,
+    ratingValue?: number | null,
+    onRated: (response: string |number | undefined) => void
 }
 
-const RatingScale: React.FC<IProps> = ({sizeInPixel, onRated}) => {
+const RatingScale: React.FC<IProps> = ({sizeInPixel, isReadOnly, ratingValue, onRated }) => {
 
     const rateHandler = (e: React.MouseEvent<HTMLDivElement, MouseEvent>, data: RatingProps) => {
         onRated(data.rating);
@@ -17,9 +19,10 @@ const RatingScale: React.FC<IProps> = ({sizeInPixel, onRated}) => {
         <div>
             {style}
             <Rating 
+                disabled={isReadOnly || false}
                 style={{fontSize: sizeInPixel}} 
                 icon='star'  
-                defaultRating={0} 
+                defaultRating={ratingValue || 0} 
                 maxRating={5}  
                 onRate={rateHandler}/>
         </div>

@@ -38,7 +38,7 @@ export default class FeedbackStore {
                                                                     && feedback.type === questionType);
             return requestingFeedback;
         } else {
-
+            return null;
         }
     }
 
