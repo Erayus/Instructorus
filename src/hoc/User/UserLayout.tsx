@@ -25,7 +25,6 @@ const UserLayout = () => {
                 <Route path="/survey/:schoolId" component={Survey} />
                 <Route path="/" exact component={SchoolSelection} />
             </Switch>
-            
         </div>
     )
 

@@ -17,12 +17,15 @@ export default class QuestionStore {
     @action loadQuestions =  () => {
         this.questionRef.on('value', (snapshot : any) => 
         {   
-            let loadedSchools: IQuestion[] = [];
+            let loadedQuestions: IQuestion[] = [];
             snapshot.forEach((childSnapshot: any) => {
-                // var childKey = childSnapshot.key;
-                loadedSchools.push(childSnapshot.val());
+                let question = {
+                    ...childSnapshot.val(),
+                    key: childSnapshot.key
+                }
+                loadedQuestions.push(question);
             });
-            this.questions = loadedSchools;
+            this.questions = loadedQuestions;
         })
     }  
 
@@ -34,9 +37,9 @@ export default class QuestionStore {
         }
         
     }
-    @action removeQuestion = async (id: string) => {
-        const deletingQuestion = this.questions.splice( this.questions.findIndex(s => s.id  === id),1)[0];
-        this.questionRef.remove(deletingQuestion);
+    @action removeQuestion = async (key: string) => {
+        this.questions.splice( this.questions.findIndex(s => s.key  === key),1);
+        await this.questionRef.child(key).remove();
     }
 }
 
