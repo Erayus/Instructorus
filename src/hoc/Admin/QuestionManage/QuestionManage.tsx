@@ -12,17 +12,14 @@ const QuestionManage = () => {
     const rootStore = useContext(RootStoreContext);
     const {questions, removeQuestion} = rootStore.questionStore;
 
-    // useEffect(()=> {
-    
-    //     // questionStore.loadQuestions();
-    // }, []);
-
     const modalClosedHandler = () => {
         setIsModalOpen(false);
     }
 
     const removeQuestionHandler = (questionKey: string) => {
-        removeQuestion(questionKey);
+        if (window.confirm("Are you sure you want to remove this question?")){
+            removeQuestion(questionKey);
+        }
     }
 
     return (
