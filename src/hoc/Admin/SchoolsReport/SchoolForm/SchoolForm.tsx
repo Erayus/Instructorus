@@ -37,7 +37,7 @@ const SchoolForm :React.FC<IProps> = ({onSchoolAdded}) => {
     }
 
     return (
-        <form>
+        <form onSubmit={addSchoolHandler}>
         <div className="grey-text">
             <MDBInput
             label="School Name"
@@ -64,7 +64,7 @@ const SchoolForm :React.FC<IProps> = ({onSchoolAdded}) => {
             />
             </div>
             <div className="text-center pb-2 mt-2">
-            <MDBBtn color="orange" onClick={addSchoolHandler}>
+            <MDBBtn color="orange" type="submit">
                 Add
             </MDBBtn>
             </div>
