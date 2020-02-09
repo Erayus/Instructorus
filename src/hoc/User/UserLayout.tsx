@@ -4,6 +4,7 @@ import {Route, Switch} from 'react-router-dom' ;
 import SchoolSelection from '../../containers/SchoolSelection/SchoolSelection';
 import Survey from '../../containers/Survey/Survey';
 import { RootStoreContext } from '../../stores/rootStore';
+import SignUp from './SignUp/SignUp';
 
 const UserLayout = () => {
 
@@ -23,6 +24,7 @@ const UserLayout = () => {
         <div className={[classes.UserLayout, "peach-gradient"].join(" ")}>
             <Switch>
                 <Route path="/survey/:schoolId" component={Survey} />
+                <Route path="/complete-sign-up" exact component={SignUp} />
                 <Route path="/" exact component={SchoolSelection} />
             </Switch>
         </div>

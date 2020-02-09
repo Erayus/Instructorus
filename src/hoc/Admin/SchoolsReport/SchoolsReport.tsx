@@ -37,11 +37,14 @@ const SchoolsReport: React.FC<RouteComponentProps>= ({history}) => {
     return (
         <div className="px-3">
             <MDBRow className="mt-2 mb-4" end>
-                <MDBBtn gradient="aqua"  onClick={()=> setIsModalOpen(true)}>ADD NEW SCHOOL</MDBBtn>
+                <MDBBtn gradient="aqua"  onClick={()=> setIsModalOpen(true)}>
+                    <MDBIcon icon="school" className="mr-2"/>
+                    ADD NEW SCHOOL
+                </MDBBtn>
             </MDBRow>
             <MDBRow className="mt-2 mb-5" end>
                 <MDBCol>
-                    <div className="z-depth-1 d-flex mb-3" >
+                    <div className="z-depth-1 d-flex mb-2" >
                         <div className="deep-orange p-3 rounded mr-2">
                             <MDBIcon className="text-white" icon="school" size="3x"/>
                         </div>
@@ -53,7 +56,7 @@ const SchoolsReport: React.FC<RouteComponentProps>= ({history}) => {
                 </MDBCol>
 
                 <MDBCol>
-                    <div className="z-depth-1 rounded  mb-3">
+                    <div className="z-depth-1 rounded  mb-2">
                     <div className="z-depth-1  d-flex " >
                         <div className="cyan p-3 rounded mr-2">
                             <MDBIcon className="text-white" icon="comment" size="3x"/>
@@ -67,7 +70,7 @@ const SchoolsReport: React.FC<RouteComponentProps>= ({history}) => {
                 </MDBCol>
 
                 <MDBCol>
-                <div className="z-depth-1 rounded  mb-3">
+                <div className="z-depth-1 rounded  mb-2">
                     <div className="z-depth-1  d-flex " >
                         <div className="green p-3 rounded mr-2">
                             <MDBIcon far className="text-white" icon="smile" size="3x"/>
@@ -79,8 +82,10 @@ const SchoolsReport: React.FC<RouteComponentProps>= ({history}) => {
                     </div>
                     </div>
                 </MDBCol>
-                
             </MDBRow>
+
+            <hr />
+
             <MDBRow>
                 {schools.map(school => {
                     return (

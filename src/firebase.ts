@@ -5,9 +5,11 @@ import firebaseConfiguration from "./config";
 
 class Firebase {
     public db: any;
+    public auth: any;
     constructor(){
         firebaseApp.initializeApp(firebaseConfiguration);
         this.db = firebaseApp.database();
+        this.auth = firebaseApp.auth();
     }
 }
 

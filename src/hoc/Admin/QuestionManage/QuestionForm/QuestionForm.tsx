@@ -48,12 +48,6 @@ const QuestionForm :React.FC<IProps> = ({onQuestionAdded, showStatus}) => {
         setQuestion({...question, [name]: value})
     }
 
-    const keyPressHandler = (e: KeyboardEvent) => {
-        e.preventDefault();
-        if (e.charCode === 13) {
-            addQuestionHandler();
-        }
-    }
 
     return (
         <form onSubmit={addQuestionHandler}> 
@@ -69,7 +63,6 @@ const QuestionForm :React.FC<IProps> = ({onQuestionAdded, showStatus}) => {
             </div>
             
             <MDBInput
-                onKeyPress={{keyPressHandler}}
                 label="Content"
                 icon="spell-check"
                 type="text"
