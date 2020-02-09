@@ -96,10 +96,12 @@ export default class UserStore {
             // Update Password successful.
           }).catch(function(error) {
             // An error happened.
+            console.log(error);
+
           });
         }).catch(function(error) {
           // An error happened.
-          alert("Fe")
+          console.log(error);
         });
 
        

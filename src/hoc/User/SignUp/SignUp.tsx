@@ -9,11 +9,11 @@ import { RouteComponentProps } from 'react-router';
 const SignUp: React.FC<RouteComponentProps> = ({location}) => {
     const rootStore = useContext(RootStoreContext);
     const {currentUser, completeSignUp} = rootStore.userStore;
-    const [formModel, setFormModel] = useState({fullName: '', password: ''});
+    const [updateDetails, settUpdateDetails] = useState({displayName: '', password: ''});
 
     const inputHandler = (e: FormEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
         const {name ,value} = e.currentTarget;
-        setFormModel({...formModel, [name]: value});
+        settUpdateDetails({...updateDetails, [name]: value});
     }
 
     useEffect(() =>{
@@ -32,7 +32,8 @@ const SignUp: React.FC<RouteComponentProps> = ({location}) => {
     return (
         <div>
             <WhiteBox>
-                    <div>
+                <div className="p-5">
+                    <div className="text-center">
                         <h1>Complete SignUp</h1>
                     </div>
                     <form onSubmit={updateUserProfile}> 
@@ -44,19 +45,19 @@ const SignUp: React.FC<RouteComponentProps> = ({location}) => {
                                 validate
                                 error="wrong"
                                 success="right"
-                                name="fullName"
-                                value={formModel.fullName}
+                                name="displayName"
+                                value={updateDetails.displayName}
                                 onInput={inputHandler}
                             />
                             <MDBInput
-                                label="Full Name"
+                                label="Password"
                                 icon="lock"
                                 type="password"
                                 validate
                                 error="wrong"
                                 success="right"
                                 name="password"
-                                value={formModel.fullName}
+                                value={updateDetails.password}
                                 onInput={inputHandler}
                             />
                             <div className="text-center pb-2 mt-2">
@@ -66,6 +67,7 @@ const SignUp: React.FC<RouteComponentProps> = ({location}) => {
                             </div>
                         </div>
                 </form>
+                </div>
             </WhiteBox>
         </div>
     )
