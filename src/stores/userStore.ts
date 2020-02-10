@@ -21,13 +21,6 @@ export default class UserStore {
             }
           });
     }
-    private actionCodeSettings = {
-        // URL you want to redirect back to. The domain (www.example.com) for this
-        // URL must be whitelisted in the Firebase Console.
-        url: 'http://localhost:3000/complete-sign-up',
-        // This must be true.
-        handleCodeInApp: true
-      };
 
     private auth = firebase.auth;
     private userRef = firebase.db.ref('users');
@@ -35,7 +28,14 @@ export default class UserStore {
     @observable currentUser: User | null = null;
 
     @action registerUser = (email: string, type: string) => {
-        this.auth.sendSignInLinkToEmail(email, this.actionCodeSettings)
+        let actionCodeSettings = {
+          // URL you want to redirect back to. The domain (www.example.com) for this
+          // URL must be whitelisted in the Firebase Console.
+          url: `http://localhost:3000/complete-sign-up?email=${email}`,
+          // This must be true.
+          handleCodeInApp: true
+        };
+        this.auth.sendSignInLinkToEmail(email,actionCodeSettings)
         .then((response: any) => {
             console.log(response);
           // The link was successfully sent. Inform the user.
@@ -48,19 +48,19 @@ export default class UserStore {
         });
     }
 
-    @action completeSignUp = (userType: string) => {
+    @action completeSignUp = ( email: string ,userType: string) => {
         if (this.auth.isSignInWithEmailLink(window.location.href)) {
             // Additional state parameters can also be passed via URL.
             // This can be used to continue the user's intended action before triggering
             // the sign-in operation.
             // Get the email if available. This should be available if the user completes
             // the flow on the same device where they started it.
-            var email = window.localStorage.getItem('emailForSignIn');
-            if (!email) {
-              // User opened the link on a different device. To prevent session fixation
-              // attacks, ask the user to provide the associated email again. For example:
-              email = window.prompt('Please provide your email for confirmation');
-            }
+              // if (!email) {
+              //   // User opened the link on a different device. To prevent session fixation
+              //   // attacks, ask the user to provide the associated email again. For example:
+              //   email = window.prompt('Please provide your email for confirmation');
+              // }
+             
             // The client SDK will parse the code from the link for you.
             this.auth.signInWithEmailLink(email, window.location.href)
               .then((result: any) => {
@@ -103,8 +103,6 @@ export default class UserStore {
           // An error happened.
           console.log(error);
         });
-
-       
       }
 
      

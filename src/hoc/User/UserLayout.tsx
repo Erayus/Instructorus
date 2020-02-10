@@ -5,6 +5,7 @@ import SchoolSelection from '../../containers/SchoolSelection/SchoolSelection';
 import Survey from '../../containers/Survey/Survey';
 import { RootStoreContext } from '../../stores/rootStore';
 import SignUp from './SignUp/SignUp';
+import Login from './Login/Login';
 
 const UserLayout = () => {
 
@@ -25,6 +26,7 @@ const UserLayout = () => {
             <Switch>
                 <Route path="/survey/:schoolId" component={Survey} />
                 <Route path="/complete-sign-up" exact component={SignUp} />
+                <Route path="/login" exact component={Login} />
                 <Route path="/" exact component={SchoolSelection} />
             </Switch>
         </div>
