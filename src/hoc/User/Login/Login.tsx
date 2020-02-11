@@ -2,14 +2,20 @@ import React, { FormEvent, useState, useContext } from 'react'
 import WhiteBox from '../../whiteBox/whiteBox'
 import { MDBInput, MDBBtn } from 'mdbreact'
 import { RootStoreContext } from '../../../stores/rootStore'
+import { RouteComponentProps } from 'react-router-dom'
 
-const Login = () => {
+
+const Login: React.FC<RouteComponentProps>= ({history}) => {
     const [loginDetails, setLoginDetails] = useState({email: '', password: ''})
     const rootStore = useContext(RootStoreContext);
     const {login} = rootStore.userStore;
 
-    const loginHandler = () => {
-        
+    const loginHandler = (e: FormEvent) => {
+        e.preventDefault();
+        login(loginDetails.email, loginDetails.password).then((response: any) => {
+            console.log(response);
+            history.replace('/');
+        })
     }
     
     const inputHandler = (e: FormEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {

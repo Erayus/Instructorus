@@ -14,11 +14,12 @@ export default class UserStore {
         this.auth.onAuthStateChanged( (user: User) => {
             if (user) {
               // User is signed in.
-              console.log('si')
+              console.log('Logged  In');
               this.currentUser = user;
             } else {
               // No user is signed in.
               this.currentUser = null;
+              console.log('Logged Out');
             }
           });
     }
@@ -117,7 +118,13 @@ export default class UserStore {
             reject(error)
           })
       })
-    } 
+    }
 
-
+    @action logOut = () => {
+      return new Promise((resolve, reject) => {
+        this.auth.signOut().then((authResult: any) => {
+          resolve(authResult);
+        }).catch((error: any) => reject(error));
+      })    
+  }
 }
