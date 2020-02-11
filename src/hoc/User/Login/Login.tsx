@@ -1,11 +1,16 @@
-import React, { FormEvent, useState } from 'react'
+import React, { FormEvent, useState, useContext } from 'react'
 import WhiteBox from '../../whiteBox/whiteBox'
 import { MDBInput, MDBBtn } from 'mdbreact'
+import { RootStoreContext } from '../../../stores/rootStore'
 
 const Login = () => {
-
-    const loginHandler = () => {}
     const [loginDetails, setLoginDetails] = useState({email: '', password: ''})
+    const rootStore = useContext(RootStoreContext);
+    const {login} = rootStore.userStore;
+
+    const loginHandler = () => {
+        
+    }
     
     const inputHandler = (e: FormEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
         const { name ,value} = e.currentTarget;

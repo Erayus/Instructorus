@@ -3,12 +3,13 @@ import WhiteBox from '../../whiteBox/whiteBox'
 import { RootStoreContext } from '../../../stores/rootStore';
 import { MDBInput, MDBBtn } from 'mdbreact';
 import { RouteComponentProps } from 'react-router';
+import queryString from 'query-string';
 
 
 
 const SignUp: React.FC<RouteComponentProps> = ({location}) => {
     const rootStore = useContext(RootStoreContext);
-    const {currentUser, completeSignUp} = rootStore.userStore;
+    const {currentUser, completeSignUp, updateUserProfile} = rootStore.userStore;
     const [updateDetails, settUpdateDetails] = useState({displayName: '', password: ''});
 
     const inputHandler = (e: FormEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
@@ -17,16 +18,18 @@ const SignUp: React.FC<RouteComponentProps> = ({location}) => {
     }
 
     useEffect(() =>{
-        if (location.pathname.split('/').some(p => p === "admin")){
-            completeSignUp("admin");
+        const email = queryString.parse(location.search).email;
+        if (location.pathname.split('/').some(p => p === "admin") && email !== undefined){
+            completeSignUp(email, "admin");
         } else {
-            completeSignUp("instructor")
+            completeSignUp(email, "instructor")
         }
         console.log()
     }, []);
 
-    const updateUserProfile = (e: FormEvent<HTMLFormElement>) => {
+    const updateUserProfileHandler = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+        updateUserProfile(updateDetails);
     } 
 
     return (
@@ -36,7 +39,7 @@ const SignUp: React.FC<RouteComponentProps> = ({location}) => {
                     <div className="text-center">
                         <h1>Complete SignUp</h1>
                     </div>
-                    <form onSubmit={updateUserProfile}> 
+                    <form onSubmit={updateUserProfileHandler}> 
                         <div className="grey-text text-left">        
                             <MDBInput
                                 label="Full Name"

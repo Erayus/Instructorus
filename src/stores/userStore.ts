@@ -14,6 +14,7 @@ export default class UserStore {
         this.auth.onAuthStateChanged( (user: User) => {
             if (user) {
               // User is signed in.
+              console.log('si')
               this.currentUser = user;
             } else {
               // No user is signed in.
@@ -48,8 +49,8 @@ export default class UserStore {
         });
     }
 
-    @action completeSignUp = ( email: string ,userType: string) => {
-        if (this.auth.isSignInWithEmailLink(window.location.href)) {
+    @action completeSignUp = ( email: string | string[] | null | undefined, userType: string) => {
+        if (this.auth.isSignInWithEmailLink(window.location.href) && email) {
             // Additional state parameters can also be passed via URL.
             // This can be used to continue the user's intended action before triggering
             // the sign-in operation.
@@ -104,9 +105,19 @@ export default class UserStore {
           console.log(error);
         });
       }
-
-     
     }
+
+    @action login = ( email: string, password: string) => {
+      return new Promise((resolve, reject) => {
+        this.auth.signInWithEmailAndPassword(email, password)
+          .then((result: any) => {
+            resolve(result) 
+          })
+          .catch((error: any) => {
+            reject(error)
+          })
+      })
+    } 
 
 
 }
