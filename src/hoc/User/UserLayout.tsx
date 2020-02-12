@@ -14,23 +14,23 @@ const UserLayout: React.FC<RouteComponentProps>= ({history}) => {
     const {loadFeedback} = rootStore.feedbackStore;
     const { loadQuestions} = rootStore.questionStore;
     const {loadSchools} = rootStore.schoolStore;
-    const {logOut, currentUser} = rootStore.userStore;
+    const {logOut, isLoggedIn} = rootStore.userStore;
  
     useEffect(() => {
         loadSchools();
         loadQuestions();
-        loadFeedback();
-        console.log(currentUser);
-    }, [loadFeedback, loadSchools, loadQuestions, currentUser]);
+        loadFeedback();    
+    }, [loadFeedback, loadSchools, loadQuestions, isLoggedIn]);
  
     const logOutHandler = () => {
         logOut().then(() => {
             history.replace('login')
         });
+
     }
     return (
         <div className={[classes.UserLayout, "peach-gradient"].join(" ")}>
-            {currentUser ? <MDBBtn
+            {isLoggedIn() ? <MDBBtn
                                 color="danger"
                                 className="float-right" 
                                 onClick={logOutHandler}>Log Out</MDBBtn> 

@@ -1,9 +1,8 @@
 import firebase from "../firebase";
 
-import { observable, action } from "mobx";
+import { observable, action, reaction } from "mobx";
 import { RootStore } from "./rootStore";
 import { User } from "firebase";
-import { createDynamicObservableObject } from "mobx/lib/internal";
 import { IUser } from "../models/user";
 
 export default class UserStore {
@@ -22,6 +21,11 @@ export default class UserStore {
               console.log('Logged Out');
             }
           });
+
+      reaction(
+        () => this.currentUser,
+        (currentUser: User | null) => this.isLoggedIn()
+      )
     }
 
     private auth = firebase.auth;
@@ -127,4 +131,9 @@ export default class UserStore {
         }).catch((error: any) => reject(error));
       })    
   }
+    @action isLoggedIn = () : boolean => {
+      console.log(this.currentUser !== null);
+      return this.currentUser !== null;
+    }
+
 }
