@@ -1,9 +1,7 @@
 # Instructorayus
-
-
-
-
-
+## Set up development
+`npm i`
+`npm run start`
 
 ## Database structure
 - questions
